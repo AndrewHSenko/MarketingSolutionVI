@@ -1,11 +1,12 @@
-$primary-color: #cf8b2b;
-$secondary-color: #6e6767;
-$success-color: #198754;
-$danger-color: #bd2d3c;
+$primary-color: #c5e5f4;
+$secondary-color: #d8c7ac;
+$primary-dark-color: #3f5b74;
+$success-color: #54af46;
+$danger-color: #c63947;
 $warning-color: #efba18;
-$info-color: #2596be;
+$info-color: #c5cef4;
 $light-color: #f7f7f7;
-$dark-color: #2a2f34;
+$dark-color: #2b333b;
 
 @use "../node_modules/bootstrap/scss/bootstrap" as * with (
   $primary: $primary-color,
@@ -18,6 +19,7 @@ $dark-color: #2a2f34;
   $dark: $dark-color,
   $theme-colors: (
     "primary": $primary-color,
+    "primary-dark": $primary-dark-color,
     "secondary": $secondary-color,
     "success": $success-color,
     "danger": $danger-color,
@@ -28,6 +30,33 @@ $dark-color: #2a2f34;
   )
 );
 
-p {
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+
+    @each $display, $value in $display-font-sizes {
+      .display-#{$breakpoint}-#{$display} {
+        font-size: $value !important;
+        font-weight: $display-font-weight;
+        line-height: $display-line-height;
+      }
+    }
+
+    @each $size, $value in $font-sizes {
+      .fs-#{$breakpoint}-#{$size} {
+        font-size: $value !important;
+      }
+    }
+
+  }
+}
+
+p, h5 {
     margin: 0;
+}
+
+.logo {
+    width: 12vw;
+    max-width: 140px;
+    min-width: 50px;
+    height: auto;
 }
