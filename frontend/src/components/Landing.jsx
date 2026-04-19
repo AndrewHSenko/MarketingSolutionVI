@@ -16,10 +16,10 @@ const Landing = () => {
         </div>
         <div className="row"> {/** Intro */}
             <div className="col-12 col-md-6 d-flex flex-column justify-content-center">
-                <div class="card border-0 d-flex flex-column gap-md-5 gap-4 p-0 ms-lg-2 ms-md-4 mx-xl-5 text-dark">
+                <div class="card border-0 d-flex flex-column gap-md-5 gap-4 p-0 mx-2 ms-lg-2 ms-md-4 mx-xl-5 text-dark">
                     <h1 className="card-title mb-0 pt-sm-2 display-xl-3 display-lg-5 fs-1 lead text-md-start text-center">Broaden your horizons and reach new clients with Marketing Solution VI</h1>
                     <img src={intro} className="intro img-fluid w-75 d-block d-md-none mx-auto" alt="House by Alghozy (https://unsplash.com/@artgho/illustrations?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)"/>
-                    <p className="fs-6 fs-lg-5 lead">With our CID List, you can find new clients, stay connected with old clients, and help scale your business! Reach out directly to the HOAs you want, market to new counties, and see their information on a map through Mapline"</p>
+                    <p className="fs-6 fs-lg-5">Marketing Solution VI specializes in finding contact and property information for neighborhoods and cities all over California. With our Common Interest Development (CID) List, you can find new clients, reconnect with old clients, and help scale your business. Learn which developments are suitable for your business, reach out directly to the HOAs you want to target, market to new counties, and see their information in a spreadsheet and directly on a navigation map. Seek out new opportunities to grow your client base with the help of Marketing Solution VI.</p>
                 </div> 
             </div>
             <div className="col-12 col-md-6 px-0">
