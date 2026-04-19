@@ -47,11 +47,27 @@ $dark-color: #2b333b;
       }
     }
 
+    .text-#{$breakpoint}-wrap {
+      white-space: normal !important;
+    }
+    .text-#{$breakpoint}-nowrap {
+      white-space: nowrap !important;
+    }
+    .text-#{$breakpoint}-truncate {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
   }
 }
 
 p, h5 {
     margin: 0;
+}
+
+.col-md-12 {
+    padding:0;
 }
 
 .logo {
