@@ -62,7 +62,7 @@ $dark-color: #2b333b;
   }
 }
 
-p, h5 {
+hr, p, h5 {
     margin: 0;
 }
 
@@ -81,5 +81,12 @@ p, h5 {
     width: 50vw;
     max-width: 500px;
     min-width: 30px;
+    height: auto;
+}
+
+.map {
+    width: 100vw;
+    max-width: 500px;
+    min-width: 40px;
     height: auto;
 }
