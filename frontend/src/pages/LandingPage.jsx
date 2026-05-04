@@ -15,7 +15,6 @@ const LandingPage = () => {
         <Shoutout title={"How It Works"} desc={"Choose which counties you want. Pay by the amount of listings."}/>
         <CountyMap />
         <PriceScale />
-        <TempScale />
         <Sample />
         <MapSample />
     </>
