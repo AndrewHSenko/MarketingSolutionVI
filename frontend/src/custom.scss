@@ -6,7 +6,19 @@ $danger-color: #c63947;
 $warning-color: #efba18;
 $info-color: #c5cef4;
 $light-color: #f7f7f7;
-$dark-color: #2b333b;
+$dark-color: #272626;
+$light-gray-color: #a09e9e;
+$gray-color: #5a5a5a;
+
+$sizes: (
+  25: 25%,
+  33: 33.333%,
+  50: 50%,
+  66: 66.666%,
+  75: 75%,
+  100: 100%,
+  auto: auto,
+);
 
 @use "../node_modules/bootstrap/scss/bootstrap" as * with (
   $primary: $primary-color,
@@ -27,8 +39,16 @@ $dark-color: #2b333b;
     "info": $info-color,
     "light": $light-color,
     "dark": $dark-color,
+    "gray" : $gray-color,
+    "light-gray": $light-gray-color,
   )
 );
+
+@each $size, $value in $sizes {
+  .w-#{$size} {
+    width: $value !important;
+  }
+}
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
@@ -59,6 +79,11 @@ $dark-color: #2b333b;
       white-space: nowrap !important;
     }
 
+    @each $size, $value in $sizes {
+      .w-#{$breakpoint}-#{$size} {
+        width: $value !important;
+      }
+    }
   }
 }
 
