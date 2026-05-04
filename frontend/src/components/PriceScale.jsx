@@ -37,7 +37,7 @@ const PriceScale = () => {
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
                 />
-                <div className="d-flex justify-content-between text-secondary pb-3" style={{ fontSize: "10px" }}>
+                <div className="d-flex justify-content-between text-light-gray pb-3">
                     <span>0</span>
                     <span>1000</span>
                     <span>2000</span>
@@ -46,7 +46,7 @@ const PriceScale = () => {
                     <span>5000+</span>
                     <span></span>
                 </div>
-                <div className="row g-3 justify-content-center align-items-center">
+                <div className="row g-3 pt-lg-4 justify-content-center align-items-center">
                     {BOXES.map((box, i) => {
                         const isActive = i === activeIndex;
                         return (
