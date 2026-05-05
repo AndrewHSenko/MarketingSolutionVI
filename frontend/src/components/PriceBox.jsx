@@ -10,7 +10,6 @@ const PriceBox = ({box, isActive}) => {
                 className={`text-center p-0 ${isActive ? "text-gray" : "text-primary-dark"}`}>
                 Listings
             </div>
-              {/* Price */}
             <div
                 className={`text-center mt-2 ${isActive ? "text-primary-dark" : "text-light-gray"}`}>
                 {box.price}
