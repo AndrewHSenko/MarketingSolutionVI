@@ -24,7 +24,7 @@ const PriceScale = () => {
     <div className="d-flex flex-column justify-content-center text-center py-lg-5 py-3 bg-primary-dark">
         <Form.Group>
             <Form.Label>
-                <div className="text-light">
+                <div className="text-light py-lg-5">
                     <h1 className="lead">Listings</h1>
                     <h1 className="display-1 text-primary fw-bold">{value}</h1>
                 </div>
@@ -46,7 +46,7 @@ const PriceScale = () => {
                     <span>5000+</span>
                     <span></span>
                 </div>
-                <div className="row g-3 pt-lg-4 justify-content-center align-items-center">
+                <div className="row g-3 py-lg-5 justify-content-center align-items-center">
                     {BOXES.map((box, i) => {
                         const isActive = i === activeIndex;
                         return (
@@ -59,9 +59,6 @@ const PriceScale = () => {
             </div>
 
         </Form.Group>
-        <div>
-            
-        </div>
     </div>
     )
 }

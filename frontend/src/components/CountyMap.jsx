@@ -1,15 +1,15 @@
 import counties from '../assets/counties.png'
-import MapTable from '../components/MapTable.jsx'
+import CountyDropdown from './CountyDropdown.jsx'
 
 const CountyMap = () => {
   return (
-    <div className="container-fluid my-3">
-        <div className="row align-items-center">
-            <div className="col-12 col-md-7 d-flex justify-content-center">
+    <div className="container-fluid my-3 pt-3 pt-md-5">
+        <div className="row ">
+            <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
                 <img src={counties} className="map"/>
             </div>
-            <div className="col-12 col-md-5 d-flex justify-content-center pe-5">
-                <MapTable />
+            <div className="col-12 col-md-8">
+                <CountyDropdown />
             </div>
         </div>
     </div>

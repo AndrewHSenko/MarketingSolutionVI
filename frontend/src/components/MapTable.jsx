@@ -1,5 +1,3 @@
-import React from 'react'
-
 const MapTable = () => {
   return (
                 <table class="table table-striped">

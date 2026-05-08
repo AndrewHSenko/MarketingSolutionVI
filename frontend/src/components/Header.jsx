@@ -3,7 +3,7 @@ import logo from '../assets/ms.png'
 
 const Header = () => {
     return (
-        <header className="sticky-top z-2 bg-primary">
+        <header className="sticky-top z-3 bg-primary">
             <nav className="navbar navbar-expand-lg w-100 py-0">
                 <div className="container-fluid mx-4">
                   <div className="d-flex flex-column align-items-center justify-content-center ms-md-4">

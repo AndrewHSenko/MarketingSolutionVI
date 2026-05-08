@@ -6,7 +6,7 @@ const Samples = () => {
     const [active, setActive] = useState(null);
 
     return (
-        <div className="container-fluid mt-4">
+        <div className="container-fluid my-4">
             <div className="row d-flex justify-content-center">
                 <div
                     className={`col-12 col-lg-6 align-items-center  ${active === "sample" ? "bg-primary" : ""}`}
