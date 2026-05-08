@@ -12,10 +12,10 @@ const Footer = () => {
           </Link>
         </div>
         <div className="col-12 col-md-4 text-center">
-          <p>Something</p>
+          <p>viger@marketingsolutionvi.com</p>
         </div>
         <div className="col-12 col-md-4 text-center">
-          <p>Something else</p>
+          <p>info@marketingsolutionvi.com</p>
         </div>
       </div>
     </div>
