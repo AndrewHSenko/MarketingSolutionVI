@@ -18,9 +18,9 @@ const Header = () => {
                   <div className="collapse navbar-collapse w-100 pt-1" id="navbar">
                       <div className="navbar-nav gap-2 me-lg-5 gap-lg-5 ms-auto">
                           <Link to="/" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID List and Map</h5></Link>
-                          <Link to="/" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">Event Planning</h5></Link>
-                          <Link to="/" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>
-                          <Link to="checkout" className="btn border-1 border-primary-dark bg-primary-dark fw-bold text-light ms-auto"><h5 className="lead">Login</h5></Link>
+                          <Link to="/events" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">Event Planning</h5></Link>
+                          <Link to="/about" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>
+                          <Link to="/myvi" className="btn border-1 border-primary-dark bg-primary-dark fw-bold text-light ms-auto"><h5 className="lead">Login</h5></Link>
                       </div>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ $primary-dark-color: #3f5b74;
 $success-color: #54af46;
 $danger-color: #c63947;
 $warning-color: #efba18;
-$info-color: #c5cef4;
+$info-color: #b2cbfd;
 $light-color: #f7f7f7;
 $dark-color: #272626;
 $light-gray-color: #c8c4c4;
@@ -115,4 +115,8 @@ hr, p, h5 {
     max-width: 500px;
     min-width: 40px;
     height: auto;
+}
+
+.btn:hover {
+    background-color: $info-color;
 }
