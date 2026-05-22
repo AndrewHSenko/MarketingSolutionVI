@@ -12,10 +12,21 @@ const Footer = () => {
           </Link>
         </div>
         <div className="col-12 col-md-4 text-center">
-          <p>viger@marketingsolutionvi.com</p>
+          <h5 className="fw-bold">Contact Us</h5>
+          <div className="my-4 d-flex flex-column align-items-center gap-3">
+            <p>viger@marketingsolutionvi.com</p>
+            <p>Info: info@marketingsolutionvi.com</p>
+            <p>Support: info@marketingsolutionvi.com</p>
+            <p>Phone: (949) 555-6784</p>
+          </div>
         </div>
         <div className="col-12 col-md-4 text-center">
-          <p>info@marketingsolutionvi.com</p>
+          <h5 className="fw-bold">Legal</h5>
+          <div className="my-4 d-flex flex-column align-items-center gap-3">
+            <p>Privacy Policy</p>
+            <p>Terms of Service</p>
+            <p></p>
+          </div>
         </div>
       </div>
     </div>

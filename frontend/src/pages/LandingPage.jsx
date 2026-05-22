@@ -10,7 +10,7 @@ const LandingPage = () => {
     <>
         <Landing />
         <Stats />
-        <Shoutout title={"How it works"} desc={"Choose which counties you want. Pay by the amount of listings."}/>
+        <Shoutout title={"How it works"} desc={"1) Choose which counties you want. Pay by the amount of listings."}/>
         <CountyMap />
         <PriceScale />
         <Shoutout title={"Want to see more?"} desc={"Select our sample CID list or our sample CID map to download and see what we have to offer."} />
