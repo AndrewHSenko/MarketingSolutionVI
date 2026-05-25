@@ -21,7 +21,7 @@ const PriceScale = () => {
     const activeIndex = getActiveIndex(value);
 
     return (
-    <div className="d-flex flex-column justify-content-center text-center py-lg-5 py-3 bg-primary-dark">
+    <div className="d-flex flex-column justify-content-center text-center py-lg-4 py-3 bg-primary-dark">
         <Form.Group>
             <Form.Label>
                 <div className="text-light py-lg-5">

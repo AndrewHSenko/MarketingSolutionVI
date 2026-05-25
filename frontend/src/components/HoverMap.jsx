@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const COUNTY_PATHS = {
   "Alameda": `M 20.413,67.582 L 19.311,71.473 L 19.382,71.692 L 19.897,71.917 L 19.826,72.208 L 20.045,72.356 L 20.045,72.575 L 15.858,71.402 L 14.904,71.621 L 14.756,71.325 L 14.389,71.402 L 13.731,70.958 L 13.507,70.448 L 13.288,70.372 L 13.068,69.122 L 13.288,68.020 L 12.997,67.143 L 12.772,67.067 L 12.629,66.776 L 12.701,66.628 L 13.068,66.628 L 11.895,65.817 L 11.895,65.450 L 12.405,64.940 L 12.405,64.129 L 12.920,64.129 L 13.068,64.573 L 13.364,64.792 L 13.288,65.011 L 13.583,65.378 L 13.507,65.674 L 13.803,65.746 L 13.951,66.042 L 15.052,66.480 L 15.343,66.995 L 15.124,67.067 L 15.124,67.214 L 15.567,67.729 L 20.413,67.582 Z`,
@@ -123,46 +123,46 @@ const CENTROIDS = {
 };
 
 const GROUPS = {
-  "green": { color: "#5a9e6f", hover: "#3d7d52", counties: ["Del Norte", "Humboldt", "Trinity", "Siskiyou", "Kings"] },
-  "blue": { color: "#7a9ec0", hover: "#4f7ca3", counties: ["Modoc"] },
-  "teal": { color: "#6aacac", hover: "#448a8a", counties: ["Shasta", "Tehama", "Lassen"] },
-  "magenta": { color: "#c06890", hover: "#9e4572", counties: ["Colusa", "Lake", "Sutter", "Yuba", "Inyo"] },
-  "gold_hatch": { color: "#c8a830", hover: "#a08520", counties: ["Glenn", "Sierra"] },
-  "gold": { color: "#c0a04a", hover: "#9a7e2c", counties: ["Yolo", "Amador", "Calaveras"] },
-  "orange": { color: "#d07840", hover: "#ac5820", counties: ["Alpine", "Tuolumne"] },
-  "steel_blue": { color: "#7090b8", hover: "#4e6e9e", counties: ["San Benito", "Merced", "Mariposa", "Madera", "Stanislaus"] },
-  "salmon": { color: "#c87868", hover: "#a85545", counties: ["Imperial"] },
-  "Alameda": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Alameda"] },
-  "Butte": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Butte"] },
-  "Contra Costa": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Contra Costa"] },
-  "El Dorado": { color: "#9aa8b0", hover: "#c8d4da", counties: ["El Dorado"] },
-  "Fresno": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Fresno"] },
-  "Kern": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Kern"] },
-  "Los Angeles": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Los Angeles"] },
-  "Marin": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Marin"] },
-  "Mendocino": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Mendocino"] },
-  "Mono": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Mono"] },
-  "Monterey": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Monterey"] },
-  "Napa": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Napa"] },
-  "Nevada": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Nevada"] },
-  "Orange": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Orange"] },
-  "Placer": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Placer"] },
-  "Plumas": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Plumas"] },
-  "Riverside": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Riverside"] },
-  "Sacramento": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Sacramento"] },
-  "San Bernardino": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Bernardino"] },
-  "San Diego": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Diego"] },
-  "San Francisco": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Francisco"] },
-  "San Joaquin": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Joaquin"] },
-  "San Luis Obispo": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Luis Obispo"] },
-  "San Mateo": { color: "#9aa8b0", hover: "#c8d4da", counties: ["San Mateo"] },
-  "Santa Barbara": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Santa Barbara"] },
-  "Santa Clara": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Santa Clara"] },
-  "Santa Cruz": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Santa Cruz"] },
-  "Solano": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Solano"] },
-  "Sonoma": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Sonoma"] },
-  "Tulare": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Tulare"] },
-  "Ventura": { color: "#9aa8b0", hover: "#c8d4da", counties: ["Ventura"] },
+  "green": { color: "#54af46", hover: "#3d8a32", counties: ["Del Norte", "Humboldt", "Trinity", "Siskiyou", "Kings"] },
+  "blue": { color: "#b2cbfd", hover: "#7a9fd4", counties: ["Modoc"] },
+  "teal": { color: "#5a9ab8", hover: "#3f7a96", counties: ["Shasta", "Tehama", "Lassen"] },
+  "magenta": { color: "#c63947", hover: "#a02030", counties: ["Colusa", "Lake", "Sutter", "Yuba", "Inyo"] },
+  "gold_hatch": { color: "#efba18", hover: "#c99a10", counties: ["Glenn", "Sierra"] },
+  "gold": { color: "#d4a820", hover: "#a87e10", counties: ["Yolo", "Amador", "Calaveras"] },
+  "orange": { color: "#c87030", hover: "#a05010", counties: ["Alpine", "Tuolumne"] },
+  "steel_blue": { color: "#7a9fd4", hover: "#4a70a8", counties: ["San Benito", "Merced", "Mariposa", "Madera", "Stanislaus"] },
+  "salmon": { color: "#c85858", hover: "#983838", counties: ["Imperial"] },
+  "Alameda": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Alameda"] },
+  "Butte": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Butte"] },
+  "Contra Costa": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Contra Costa"] },
+  "El Dorado": { color: "#6a7e8c", hover: "#8aaabb", counties: ["El Dorado"] },
+  "Fresno": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Fresno"] },
+  "Kern": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Kern"] },
+  "Los Angeles": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Los Angeles"] },
+  "Marin": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Marin"] },
+  "Mendocino": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Mendocino"] },
+  "Mono": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Mono"] },
+  "Monterey": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Monterey"] },
+  "Napa": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Napa"] },
+  "Nevada": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Nevada"] },
+  "Orange": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Orange"] },
+  "Placer": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Placer"] },
+  "Plumas": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Plumas"] },
+  "Riverside": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Riverside"] },
+  "Sacramento": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Sacramento"] },
+  "San Bernardino": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Bernardino"] },
+  "San Diego": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Diego"] },
+  "San Francisco": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Francisco"] },
+  "San Joaquin": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Joaquin"] },
+  "San Luis Obispo": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Luis Obispo"] },
+  "San Mateo": { color: "#6a7e8c", hover: "#8aaabb", counties: ["San Mateo"] },
+  "Santa Barbara": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Santa Barbara"] },
+  "Santa Clara": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Santa Clara"] },
+  "Santa Cruz": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Santa Cruz"] },
+  "Solano": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Solano"] },
+  "Sonoma": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Sonoma"] },
+  "Tulare": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Tulare"] },
+  "Ventura": { color: "#6a7e8c", hover: "#8aaabb", counties: ["Ventura"] },
 };
 
 const COUNTY_GROUP = {
@@ -287,15 +287,184 @@ const COUNTY_NUMBER = {
   "Yuba": 70,
 };
 
+const GROUP_TEXT = {
+  "green": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus euismod felis nec nulla facilisis, vel fringilla nisi hendrerit. Donec vehicula sapien ut lacus tincidunt, eget consequat tortor gravida. Curabitur eget enim velit. Fusce commodo eros id arcu blandit, at tristique risus ultricies.",
+  "blue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+  "teal": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula ipsum a arcu cursus vitae. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu felis quam. Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit.",
+  "magenta": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Donec sollicitudin molestie malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur aliquet quam id dui posuere blandit.",
+  "gold_hatch": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla porttitor accumsan tincidunt. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Mauris blandit aliquet elit.",
+  "gold": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus nibh. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.",
+  "orange": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis lorem ut libero malesuada feugiat. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend libero at lobortis. Phasellus at purus et libero lacinia dictum. Fusce aliquet pede non pede.",
+  "steel_blue": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat.",
+  "salmon": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum congue leo eget malesuada. Pellentesque in ipsum id orci porta dapibus. Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit. Sed porttitor lectus nibh. Quisque velit nisi, pretium ut lacinia in, elementum id enim.",
+  "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ultricies ligula sed magna dictum porta. Vivamus magna. Fusce commodo eros id arcu blandit, at tristique risus ultricies. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada feugiat.",
+};
+
+const DATA_FIELDS = {
+  // Named groups — all 4
+  "green":      ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "teal":       ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "steel_blue": ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "magenta":    ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  // 3 fields
+  "gold":       ["Corporation Names","Registration Dates","Units"],
+  "orange":     ["Corporation Names","Cross Streets","Units"],
+  "gold_hatch": ["Corporation Names","Registration Dates","Units"],
+  // 2 fields
+  "blue":       ["Corporation Names","Units"],
+  "salmon":     ["Corporation Names","Units"],
+  // Singleton counties — varied
+  "Alameda":          ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Alpine":           ["Corporation Names","Units"],
+  "Amador":           ["Corporation Names","Units"],
+  "Butte":            ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Calaveras":        ["Corporation Names","Registration Dates"],
+  "Colusa":           ["Corporation Names","Units"],
+  "Contra Costa":     ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "El Dorado":        ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Fresno":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Glenn":            ["Corporation Names","Units"],
+  "Humboldt":         ["Corporation Names","Cross Streets","Units"],
+  "Imperial":         ["Corporation Names","Registration Dates","Units"],
+  "Inyo":             ["Corporation Names","Units"],
+  "Kern":             ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Kings":            ["Corporation Names","Registration Dates"],
+  "Lake":             ["Corporation Names","Units"],
+  "Lassen":           ["Corporation Names","Registration Dates"],
+  "Los Angeles":      ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Madera":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Marin":            ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Mariposa":         ["Corporation Names","Units"],
+  "Mendocino":        ["Corporation Names","Registration Dates"],
+  "Merced":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Modoc":            ["Corporation Names"],
+  "Mono":             ["Corporation Names","Units"],
+  "Monterey":         ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Napa":             ["Corporation Names","Cross Streets","Registration Dates"],
+  "Nevada":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Orange":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Placer":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Plumas":           ["Corporation Names","Registration Dates"],
+  "Riverside":        ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Sacramento":       ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Benito":       ["Corporation Names","Units"],
+  "San Bernardino":   ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Diego":        ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Francisco":    ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Joaquin":      ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Luis Obispo":  ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "San Mateo":        ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Santa Barbara":    ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Santa Clara":      ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Santa Cruz":       ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Shasta":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Sierra":           ["Corporation Names","Registration Dates"],
+  "Siskiyou":         ["Corporation Names","Cross Streets","Units"],
+  "Solano":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Sonoma":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Stanislaus":       ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Sutter":           ["Corporation Names","Registration Dates"],
+  "Tehama":           ["Corporation Names","Cross Streets"],
+  "Trinity":          ["Corporation Names","Units"],
+  "Tulare":           ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Tuolumne":         ["Corporation Names","Registration Dates","Units"],
+  "Ventura":          ["Corporation Names","Cross Streets","Registration Dates","Units"],
+  "Yolo":             ["Corporation Names","Cross Streets","Registration Dates"],
+  "Yuba":             ["Corporation Names","Registration Dates"],
+};
+
+const FIELD_DESC = {
+  "Corporation Names":  "Legal HOA entity names",
+  "Cross Streets":      "Real intersections per city",
+  "Registration Dates": "Spanning 1985–2022",
+  "Units":              "Communities ~20 to ~600 units",
+};
+
 function getGroupInfo(hoveredCounty) {
   if (!hoveredCounty) return { counties: new Set(), groupKey: null };
   const groupKey = COUNTY_GROUP[hoveredCounty];
   return { counties: new Set(GROUPS[groupKey]?.counties || []), groupKey };
 }
 
+function NameRow({ names, maxWidth }) {
+  const containerRef = useRef(null);
+  const [rows, setRows] = useState([names]);
+
+  useEffect(() => {
+    if (!containerRef.current || names.length <= 1) {
+      setRows([names]);
+      return;
+    }
+    const spans = containerRef.current.querySelectorAll("[data-name]");
+    const rowMap = new Map();
+    spans.forEach((span) => {
+      const key = Math.round(span.getBoundingClientRect().top);
+      if (!rowMap.has(key)) rowMap.set(key, []);
+      rowMap.get(key).push(span.dataset.name);
+    });
+    const sorted = [...rowMap.entries()].sort((a, b) => a[0] - b[0]).map(([, v]) => v);
+    setRows(sorted);
+  }, [names.join(","), maxWidth]);
+
+  const measureStyle = {
+    position: "absolute",
+    visibility: "hidden",
+    pointerEvents: "none",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    // Use the passed maxWidth so measurement matches the actual column width
+    width: maxWidth ? `${maxWidth}px` : "100%",
+    gap: "0",
+  };
+
+  return (
+    <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+      <div ref={containerRef} aria-hidden="true" style={measureStyle}>
+        {names.map((name) => (
+          <span key={name} data-name={name} style={{ fontSize: "15px", padding: "0 4px", whiteSpace: "nowrap" }}>
+            {name} County
+          </span>
+        ))}
+      </div>
+      {rows.map((row, ri) => (
+        <div key={ri} style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "nowrap" }}>
+          {row.map((name, i) => (
+            <span key={name} style={{ display: "flex", alignItems: "center" }}>
+              {i > 0 && (
+                <span style={{
+                  color: "#3f5b74",
+                  fontSize: "15px",
+                  margin: "0 6px",
+                  lineHeight: 1,
+                  userSelect: "none",
+                }}>✦</span>
+              )}
+              <span style={{
+                color: "#c5e5f4",
+                fontSize: "15px",
+                letterSpacing: "0.06em",
+                lineHeight: 1.5,
+                whiteSpace: "nowrap",
+              }}>
+                {name} County
+              </span>
+            </span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function CaliforniaMap() {
   const [hovered, setHovered] = useState(null);
-  const { counties: groupCounties } = getGroupInfo(hovered);
+  const [panelText, setPanelText] = useState(GROUP_TEXT.default);
+  const [fadeIn, setFadeIn] = useState(true);
+  const [clickedSum, setClickedSum] = useState(0);
+  const [clickedKeys, setClickedKeys] = useState(new Set());
+
+  const { counties: groupCounties, groupKey: hoveredGroupKey } = getGroupInfo(hovered);
   const isAnyHovered = hovered !== null;
   const countyNames = Object.keys(COUNTY_PATHS);
   const highlightedNames = hovered ? [...groupCounties].sort() : [];
@@ -304,31 +473,45 @@ export default function CaliforniaMap() {
   const displayNumber = hoveredNumber != null ? hoveredNumber.toLocaleString() : "✕";
   const hasNumber = hoveredNumber != null;
 
+  // Fade-swap panel text when group changes
+  useEffect(() => {
+    const newText = hoveredGroupKey
+      ? (GROUP_TEXT[hoveredGroupKey] ?? GROUP_TEXT.default)
+      : GROUP_TEXT.default;
+    setFadeIn(false);
+    const t = setTimeout(() => {
+      setPanelText(newText);
+      setFadeIn(true);
+    }, 180);
+    return () => clearTimeout(t);
+  }, [hoveredGroupKey]);
+
   return (
     <div style={{
       minHeight: "100vh",
-      background: "radial-gradient(ellipse at 30% 20%, #1a2535 0%, #0d1520 60%, #080d14 100%)",
+      background: "#3f5b74",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
       fontFamily: "Georgia, \'Times New Roman\', serif",
       padding: "24px",
+      gap: "0",
     }}>
 
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: "16px" }}>
         <h1 style={{
-          color: "#ddd0b0",
+          color: "#c5e5f4",
           fontSize: "24px",
           fontWeight: 400,
           letterSpacing: "0.25em",
           textTransform: "uppercase",
           margin: 0,
           textShadow: "0 2px 20px rgba(200,180,130,0.2)",
-        }}>California</h1>
+        }}>California MSVI Listings</h1>
         <p style={{
-          color: "#506070",
+          color: "#7a9ab0",
           fontSize: "10px",
           letterSpacing: "0.4em",
           textTransform: "uppercase",
@@ -336,186 +519,341 @@ export default function CaliforniaMap() {
         }}>58 Counties · Hover to Select</p>
       </div>
 
-      {/* Map */}
+      {/* Map + Panel row */}
       <div style={{
-        background: "rgba(255,255,255,0.02)",
-        borderRadius: "12px",
-        border: "1px solid rgba(255,255,255,0.06)",
-        padding: "12px",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)",
-      }}>
-        <svg
-          viewBox="0 0 93.572 159.56"
-          width="420"
-          height="715"
-          style={{ display: "block" }}
-        >
-          <defs>
-            <filter id="drop" x="-5%" y="-5%" width="110%" height="110%">
-              <feDropShadow dx="0" dy="0.12" stdDeviation="0.22"
-                floodColor="#000" floodOpacity="0.4" />
-            </filter>
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="0.45" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <pattern id="hatch" patternUnits="userSpaceOnUse"
-              width="1.4" height="1.4" patternTransform="rotate(45)">
-              <rect width="1.4" height="1.4" fill="#c8a830"/>
-              <line x1="0" y1="0" x2="0" y2="1.4" stroke="#705800" strokeWidth="0.55"/>
-            </pattern>
-            <pattern id="hatch-hover" patternUnits="userSpaceOnUse"
-              width="1.4" height="1.4" patternTransform="rotate(45)">
-              <rect width="1.4" height="1.4" fill="#a88520"/>
-              <line x1="0" y1="0" x2="0" y2="1.4" stroke="#503800" strokeWidth="0.55"/>
-            </pattern>
-          </defs>
-
-          {countyNames.map((name) => {
-            const group   = COUNTY_GROUP[name];
-            const inGroup = groupCounties.has(name);
-            const gData   = GROUPS[group];
-            const isHatch = group === "gold_hatch";
-            const fill    = isHatch
-              ? (inGroup ? "url(#hatch-hover)" : "url(#hatch)")
-              : (inGroup ? gData.hover : gData.color);
-            return (
-              <path
-                key={name}
-                d={COUNTY_PATHS[name]}
-                fill={fill}
-                fillOpacity={isAnyHovered && !inGroup ? 0.32 : 0.88}
-                stroke="#111"
-                strokeWidth={inGroup ? "0.22" : "0.09"}
-                strokeOpacity={0.9}
-                filter={inGroup ? "url(#glow)" : "url(#drop)"}
-                style={{ cursor: "pointer", transition: "fill-opacity 0.18s, stroke-width 0.15s" }}
-                onMouseEnter={() => setHovered(name)}
-                onMouseLeave={() => setHovered(null)}
-              />
-            );
-          })}
-
-          {countyNames.map((name) => {
-            const [cx, cy] = CENTROIDS[name];
-            const inGroup  = groupCounties.has(name);
-            return (
-              <text
-                key={`lbl-${name}`}
-                x={cx} y={cy}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fontSize={inGroup ? "2.1" : "1.6"}
-                fontWeight={inGroup ? "700" : "500"}
-                fill={inGroup
-                  ? "#fff"
-                  : (isAnyHovered ? "rgba(200,210,215,0.42)" : "rgba(235,240,242,0.88)")}
-                stroke={inGroup ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0.55)"}
-                strokeWidth={inGroup ? "0.6" : "0.45"}
-                paintOrder="stroke"
-                pointerEvents="none"
-                style={{ transition: "font-size 0.15s, fill 0.15s" }}
-              >{name}</text>
-            );
-          })}
-        </svg>
-      </div>
-
-      {/* Footer */}
-      <div style={{
-        marginTop: "14px",
-        width: "444px",
-        minHeight: "40px",
         display: "flex",
-        alignItems: "center",
+        flexDirection: "row",
+        alignItems: "flex-start",
+        gap: "20px",
+        flexWrap: "wrap",
+        justifyContent: "center",
       }}>
-        {hovered ? (
+
+        {/* Map card */}
+        <div style={{
+          background: "rgba(63,91,116,0.12)",
+          borderRadius: "12px",
+          border: "1px solid rgba(197,229,244,0.14)",
+          padding: "12px",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)",
+          flexShrink: 0,
+        }}>
+          <svg
+            viewBox="0 0 93.572 159.56"
+            width="420"
+            height="715"
+            style={{ display: "block" }}
+          >
+            <defs>
+              <filter id="drop" x="-5%" y="-5%" width="110%" height="110%">
+                <feDropShadow dx="0" dy="0.12" stdDeviation="0.22"
+                  floodColor="#000" floodOpacity="0.4" />
+              </filter>
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="0.45" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <pattern id="hatch" patternUnits="userSpaceOnUse"
+                width="1.4" height="1.4" patternTransform="rotate(45)">
+                <rect width="1.4" height="1.4" fill="#efba18"/>
+                <line x1="0" y1="0" x2="0" y2="1.4" stroke="#705800" strokeWidth="0.55"/>
+              </pattern>
+              <pattern id="hatch-hover" patternUnits="userSpaceOnUse"
+                width="1.4" height="1.4" patternTransform="rotate(45)">
+                <rect width="1.4" height="1.4" fill="#c99a10"/>
+                <line x1="0" y1="0" x2="0" y2="1.4" stroke="#503800" strokeWidth="0.55"/>
+              </pattern>
+            </defs>
+
+            {countyNames.map((name) => {
+              const group   = COUNTY_GROUP[name];
+              const inGroup = groupCounties.has(name);
+              const gData   = GROUPS[group];
+              const isHatch = group === "gold_hatch";
+              const fill    = isHatch
+                ? (inGroup ? "url(#hatch-hover)" : "url(#hatch)")
+                : (inGroup ? gData.hover : gData.color);
+              return (
+                <path
+                  key={name}
+                  d={COUNTY_PATHS[name]}
+                  fill={fill}
+                  fillOpacity={isAnyHovered && !inGroup ? 0.32 : 0.88}
+                  stroke="#111"
+                  strokeWidth={inGroup ? "0.22" : "0.09"}
+                  strokeOpacity={0.9}
+                  filter={inGroup ? "url(#glow)" : "url(#drop)"}
+                  style={{ cursor: "pointer", transition: "fill-opacity 0.18s, stroke-width 0.15s" }}
+                  onMouseEnter={() => setHovered(name)}
+                  onMouseLeave={() => setHovered(null)}
+                  onClick={() => {
+                    const groupKey = COUNTY_GROUP[name];
+                    const dedupeKey = groupKey || name;
+                    const n = COUNTY_NUMBER[name];
+                    if (n != null) {
+                      setClickedKeys(prev => {
+                        if (prev.has(dedupeKey)) return prev;
+                        const next = new Set(prev);
+                        next.add(dedupeKey);
+                        setClickedSum(s => s + n);
+                        return next;
+                      });
+                    }
+                  }}
+                />
+              );
+            })}
+
+            {countyNames.map((name) => {
+              const [cx, cy] = CENTROIDS[name];
+              const inGroup  = groupCounties.has(name);
+              return (
+                <text
+                  key={`lbl-${name}`}
+                  x={cx} y={cy}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize={inGroup ? "2.1" : "1.6"}
+                  fontWeight={inGroup ? "700" : "500"}
+                  fill={inGroup
+                    ? "#fff"
+                    : (isAnyHovered ? "rgba(197,229,244,0.35)" : "rgba(197,229,244,0.92)")}
+                  stroke={inGroup ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.65)"}
+                  strokeWidth={inGroup ? "0.6" : "0.45"}
+                  paintOrder="stroke"
+                  pointerEvents="none"
+                  style={{ transition: "font-size 0.15s, fill 0.15s" }}
+                >{name}</text>
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* Info panel */}
+        <div style={{
+          width: "280px",
+          alignSelf: "stretch",
+          background: "rgba(63,91,116,0.15)",
+          borderRadius: "12px",
+          border: "1px solid rgba(197,229,244,0.14)",
+          padding: "20px",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "500px",
+        }}>
+
+          {/* Top 1/3 — Region Info */}
           <div style={{
+            flex: "0 0 33.333%",
+            borderBottom: isAnyHovered ? "1px solid rgba(197,229,244,0.14)" : "none",
+            paddingBottom: "14px",
             display: "flex",
-            alignItems: "center",
-            width: "100%",
+            flexDirection: "column",
+            overflow: "hidden",
           }}>
-
-            {/* Left 75% — county names, wrapping inline like v4 */}
-            <div style={{
-              width: "75%",
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              gap: "0",
-              paddingRight: "12px",
-            }}>
-              {highlightedNames.map((name, i) => (
-                <span key={name} style={{ display: "flex", alignItems: "center" }}>
-                  {i > 0 && (
-                    <span style={{
-                      color: "#3a5060",
-                      fontSize: "16px",
-                      margin: "0 8px",
-                      lineHeight: 1,
-                      userSelect: "none",
-                    }}>✦</span>
-                  )}
-                  <span style={{
-                    color: "#ddd0b0",
-                    fontSize: "14px",
-                    letterSpacing: "0.08em",
-                    lineHeight: 1.5,
-                  }}>
-                    {name} County
-                  </span>
-                </span>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div style={{
-              width: "1px",
-              alignSelf: "stretch",
-              background: "rgba(255,255,255,0.09)",
+            <p style={{
+              color: "#7a9ab0",
+              fontSize: "9px",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              margin: "0 0 10px 0",
+              lineHeight: 1,
               flexShrink: 0,
-            }}/>
+            }}>Region Info</p>
 
-            {/* Right 25% — Listings label + number */}
-            <div style={{
-              width: "25%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingLeft: "12px",
-              gap: "3px",
-            }}>
-              <span style={{
-                color: "#506070",
-                fontSize: "9px",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                lineHeight: 1,
-              }}>Listings</span>
-              <span style={{
-                color: hasNumber ? "#e8d5b0" : "#906060",
-                fontSize: "22px",
-                fontWeight: "600",
-                letterSpacing: "0.02em",
-                lineHeight: 1.1,
+            {isAnyHovered ? (
+              <div style={{
+                display: "flex",
+                alignItems: "flex-start",
+                width: "100%",
+                flex: 1,
+                minHeight: 0,
               }}>
-                {displayNumber}
-              </span>
-            </div>
+                {/* County names — 2/3 width, wrapping */}
+                <div style={{
+                  flex: "0 0 66.666%",
+                  minWidth: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingRight: "8px",
+                  overflow: "hidden",
+                  alignSelf: "center",
+                }}>
+                  <NameRow names={highlightedNames} maxWidth={155} />
+                </div>
 
+                {/* Divider */}
+                <div style={{
+                  width: "1px",
+                  alignSelf: "stretch",
+                  background: "rgba(197,229,244,0.15)",
+                  flexShrink: 0,
+                }}/>
+
+                {/* Listings — 1/3 width */}
+                <div style={{
+                  flex: "0 0 33.333%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingLeft: "8px",
+                  gap: "4px",
+                  alignSelf: "center",
+                }}>
+                  <span style={{
+                    color: "#7a9ab0",
+                    fontSize: "8px",
+                    letterSpacing: "0.25em",
+                    textTransform: "uppercase",
+                    lineHeight: 1,
+                    textAlign: "center",
+                  }}>Listings</span>
+                  <span style={{
+                    color: hasNumber ? "#d8c7ac" : "#c63947",
+                    fontSize: "20px",
+                    fontWeight: "600",
+                    letterSpacing: "0.02em",
+                    lineHeight: 1.1,
+                  }}>
+                    {displayNumber}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+              }}>
+                <p style={{
+                  color: "#3f5b74",
+                  fontSize: "13px",
+                  margin: 0,
+                  lineHeight: 1.5,
+                  fontStyle: "italic",
+                }}>Hover a county to view details</p>
+              </div>
+            )}
           </div>
-        ) : (
-          <span style={{
-            color: "#2a3d4d",
-            fontSize: "12px",
-            letterSpacing: "0.12em",
-            width: "100%",
-            textAlign: "center",
+
+          {/* Bottom 2/3 — Data fields, only when hovered */}
+          {isAnyHovered && (() => {
+            const groupKey = COUNTY_GROUP[hovered];
+            const fields = DATA_FIELDS[groupKey] || DATA_FIELDS[hovered] || ["Corporation Names"];
+            return (
+              <div style={{
+                flex: "1 1 66.666%",
+                paddingTop: "16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "0",
+              }}>
+                <p style={{
+                  color: "#7a9ab0",
+                  fontSize: "9px",
+                  letterSpacing: "0.35em",
+                  textTransform: "uppercase",
+                  margin: "0 0 12px 0",
+                  lineHeight: 1,
+                }}>Data Includes</p>
+                {fields.map((label) => (
+                  <div key={label} style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "10px",
+                    padding: "10px 0",
+                    borderBottom: "1px solid rgba(197,229,244,0.07)",
+                  }}>
+                    <span style={{
+                      width: "5px",
+                      height: "5px",
+                      borderRadius: "50%",
+                      background: "#3f5b74",
+                      flexShrink: 0,
+                      marginTop: "5px",
+                    }}/>
+                    <div>
+                      <p style={{
+                        color: "#c5e5f4",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        margin: "0 0 2px 0",
+                        lineHeight: 1.3,
+                        letterSpacing: "0.03em",
+                      }}>{label}</p>
+                      <p style={{
+                        color: "#7a9ab0",
+                        fontSize: "11px",
+                        margin: 0,
+                        lineHeight: 1.4,
+                      }}>{FIELD_DESC[label]}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
+        </div>
+
+        {/* Running total panel */}
+        {clickedKeys.size > 0 && (
+          <div style={{
+            width: "120px",
+            alignSelf: "flex-start",
+            background: "rgba(63,91,116,0.15)",
+            borderRadius: "12px",
+            border: "1px solid rgba(197,229,244,0.14)",
+            padding: "16px 14px",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
           }}>
-            Hover a county to select it
-          </span>
+            <p style={{
+              color: "#7a9ab0",
+              fontSize: "8px",
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              margin: 0,
+              lineHeight: 1.4,
+              textAlign: "center",
+            }}>Total Listings</p>
+            <p style={{
+              color: "#d8c7ac",
+              fontSize: "26px",
+              fontWeight: "700",
+              margin: 0,
+              lineHeight: 1.1,
+              letterSpacing: "0.02em",
+            }}>{clickedSum.toLocaleString()}</p>
+            <p style={{
+              color: "#3f5b74",
+              fontSize: "10px",
+              margin: 0,
+              letterSpacing: "0.05em",
+            }}>{clickedKeys.size} {clickedKeys.size !== 1 ? "counties/groups" : "county/group"}</p>
+            <button
+              onClick={() => { setClickedSum(0); setClickedKeys(new Set()); }}
+              style={{
+                marginTop: "4px",
+                background: "rgba(197,229,244,0.07)",
+                border: "1px solid rgba(197,229,244,0.15)",
+                borderRadius: "6px",
+                color: "#7a9ab0",
+                fontSize: "10px",
+                letterSpacing: "0.08em",
+                padding: "4px 10px",
+                cursor: "pointer",
+              }}
+            >Reset</button>
+          </div>
         )}
+
       </div>
 
     </div>
