@@ -1,5 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 
+function useWindowWidth() {
+  const [width, setWidth] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth : 800
+  );
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return width;
+}
+
 const COUNTY_PATHS = {
   "Alameda": `M 20.413,67.582 L 19.311,71.473 L 19.382,71.692 L 19.897,71.917 L 19.826,72.208 L 20.045,72.356 L 20.045,72.575 L 15.858,71.402 L 14.904,71.621 L 14.756,71.325 L 14.389,71.402 L 13.731,70.958 L 13.507,70.448 L 13.288,70.372 L 13.068,69.122 L 13.288,68.020 L 12.997,67.143 L 12.772,67.067 L 12.629,66.776 L 12.701,66.628 L 13.068,66.628 L 11.895,65.817 L 11.895,65.450 L 12.405,64.940 L 12.405,64.129 L 12.920,64.129 L 13.068,64.573 L 13.364,64.792 L 13.288,65.011 L 13.583,65.378 L 13.507,65.674 L 13.803,65.746 L 13.951,66.042 L 15.052,66.480 L 15.343,66.995 L 15.124,67.067 L 15.124,67.214 L 15.567,67.729 L 20.413,67.582 Z`,
   "Alpine": `M 42.800,56.566 L 45.518,60.605 L 45.299,61.043 L 45.003,61.191 L 44.708,61.854 L 44.932,62.293 L 45.003,63.690 L 45.151,63.762 L 45.075,64.129 L 44.855,64.206 L 44.784,64.573 L 44.636,64.573 L 44.636,65.011 L 43.901,65.011 L 43.973,65.450 L 43.682,65.526 L 43.534,65.965 L 42.948,65.230 L 43.167,64.573 L 43.019,64.425 L 41.917,64.425 L 40.893,64.792 L 39.495,63.027 L 39.127,63.027 L 40.082,59.355 L 41.770,58.621 L 41.770,58.473 L 41.917,58.473 L 41.846,58.331 L 42.432,57.887 L 42.432,57.667 L 42.800,57.596 L 42.948,57.081 L 42.800,56.566 Z`,
@@ -62,64 +74,64 @@ const COUNTY_PATHS = {
 };
 
 const CENTROIDS = {
-  "Alameda": [15.5, 69.2],
-  "Alpine": [43.2, 61.8],
-  "Amador": [33.8, 62.5],
-  "Butte": [28.5, 42.0],
-  "Calaveras": [35.0, 65.5],
-  "Colusa": [19.5, 48.0],
-  "Contra Costa": [17.5, 66.0],
-  "Del Norte": [11.0, 6.2],
-  "El Dorado": [35.5, 57.5],
-  "Fresno": [41.0, 87.0],
-  "Glenn": [20.2, 41.5],
-  "Humboldt": [9.5, 20.0],
-  "Imperial": [77.0, 151.5],
-  "Inyo": [58.0, 96.0],
-  "Kern": [41.0, 111.5],
-  "Kings": [33.5, 96.5],
-  "Lake": [13.5, 47.0],
-  "Lassen": [43.0, 35.0],
-  "Los Angeles": [46.5, 128.5],
-  "Madera": [39.0, 82.0],
-  "Marin": [8.0, 59.2],
-  "Mariposa": [39.5, 76.0],
-  "Mendocino": [7.5, 40.0],
-  "Merced": [28.5, 79.5],
-  "Modoc": [45.5, 15.0],
-  "Mono": [50.0, 73.0],
-  "Monterey": [18.5, 90.5],
-  "Napa": [15.0, 57.0],
-  "Nevada": [35.5, 50.5],
-  "Orange": [49.5, 138.0],
-  "Placer": [34.0, 53.5],
-  "Plumas": [37.5, 39.5],
-  "Riverside": [68.0, 140.5],
-  "Sacramento": [24.5, 60.5],
-  "San Benito": [22.5, 86.5],
-  "San Bernardino": [72.0, 122.0],
-  "San Diego": [56.0, 150.0],
-  "San Francisco": [9.5, 65.8],
-  "San Joaquin": [24.5, 67.5],
-  "San Luis Obispo": [26.5, 106.0],
-  "San Mateo": [10.2, 71.5],
-  "Santa Barbara": [28.0, 118.5],
-  "Santa Clara": [18.5, 76.5],
-  "Santa Cruz": [13.2, 79.0],
-  "Shasta": [24.5, 26.5],
-  "Sierra": [38.0, 46.0],
-  "Siskiyou": [22.0, 13.5],
-  "Solano": [20.8, 61.2],
-  "Sonoma": [9.5, 55.5],
-  "Stanislaus": [27.0, 72.5],
-  "Sutter": [24.8, 51.5],
-  "Tehama": [23.5, 34.5],
-  "Trinity": [16.0, 24.0],
-  "Tulare": [48.0, 98.5],
-  "Tuolumne": [40.0, 70.5],
-  "Ventura": [36.0, 122.5],
-  "Yolo": [20.5, 56.0],
-  "Yuba": [29.2, 49.0],
+  "Alameda": [15.5,69.2],
+  "Alpine": [43.2,61.8],
+  "Amador": [33.8,62.5],
+  "Butte": [28.5,42],
+  "Calaveras": [35,65.5],
+  "Colusa": [19.5,48],
+  "Contra Costa": [17.5,66],
+  "Del Norte": [11,6.2],
+  "El Dorado": [35.5,57.5],
+  "Fresno": [41,87],
+  "Glenn": [20.2,41.5],
+  "Humboldt": [9.5,20],
+  "Imperial": [77,151.5],
+  "Inyo": [58,96],
+  "Kern": [41,111.5],
+  "Kings": [33.5,96.5],
+  "Lake": [13.5,47],
+  "Lassen": [43,35],
+  "Los Angeles": [46.5,128.5],
+  "Madera": [39,82],
+  "Marin": [8,59.2],
+  "Mariposa": [39.5,76],
+  "Mendocino": [7.5,40],
+  "Merced": [28.5,79.5],
+  "Modoc": [45.5,15],
+  "Mono": [50,73],
+  "Monterey": [18.5,90.5],
+  "Napa": [15,57],
+  "Nevada": [35.5,50.5],
+  "Orange": [49.5,138],
+  "Placer": [34,53.5],
+  "Plumas": [37.5,39.5],
+  "Riverside": [68,140.5],
+  "Sacramento": [24.5,60.5],
+  "San Benito": [22.5,86.5],
+  "San Bernardino": [72,122],
+  "San Diego": [56,150],
+  "San Francisco": [9.5,65.8],
+  "San Joaquin": [24.5,67.5],
+  "San Luis Obispo": [26.5,106],
+  "San Mateo": [10.2,71.5],
+  "Santa Barbara": [28,118.5],
+  "Santa Clara": [18.5,76.5],
+  "Santa Cruz": [13.2,79],
+  "Shasta": [24.5,26.5],
+  "Sierra": [38,46],
+  "Siskiyou": [22,13.5],
+  "Solano": [20.8,61.2],
+  "Sonoma": [9.5,55.5],
+  "Stanislaus": [27,72.5],
+  "Sutter": [24.8,51.5],
+  "Tehama": [23.5,34.5],
+  "Trinity": [16,24],
+  "Tulare": [48,98.5],
+  "Tuolumne": [40,70.5],
+  "Ventura": [36,122.5],
+  "Yolo": [20.5,56],
+  "Yuba": [29.2,49],
 };
 
 const GROUPS = {
@@ -301,19 +313,15 @@ const GROUP_TEXT = {
 };
 
 const DATA_FIELDS = {
-  // Named groups — all 4
   "green":      ["Corporation Names","Cross Streets","Registration Dates","Units"],
   "teal":       ["Corporation Names","Cross Streets","Registration Dates","Units"],
   "steel_blue": ["Corporation Names","Cross Streets","Registration Dates","Units"],
   "magenta":    ["Corporation Names","Cross Streets","Registration Dates","Units"],
-  // 3 fields
   "gold":       ["Corporation Names","Registration Dates","Units"],
   "orange":     ["Corporation Names","Cross Streets","Units"],
   "gold_hatch": ["Corporation Names","Registration Dates","Units"],
-  // 2 fields
   "blue":       ["Corporation Names","Units"],
   "salmon":     ["Corporation Names","Units"],
-  // Singleton counties — varied
   "Alameda":          ["Corporation Names","Cross Streets","Registration Dates","Units"],
   "Alpine":           ["Corporation Names","Units"],
   "Amador":           ["Corporation Names","Units"],
@@ -385,67 +393,88 @@ function getGroupInfo(hoveredCounty) {
   const groupKey = COUNTY_GROUP[hoveredCounty];
   return { counties: new Set(GROUPS[groupKey]?.counties || []), groupKey };
 }
-
-function NameRow({ names, maxWidth }) {
+function NameRow({ names, maxWidth, isMobile }) {
   const containerRef = useRef(null);
+  const wrapperRef = useRef(null);
   const [rows, setRows] = useState([names]);
 
   useEffect(() => {
-    if (!containerRef.current || names.length <= 1) {
-      setRows([names]);
-      return;
-    }
-    const spans = containerRef.current.querySelectorAll("[data-name]");
-    const rowMap = new Map();
-    spans.forEach((span) => {
-      const key = Math.round(span.getBoundingClientRect().top);
-      if (!rowMap.has(key)) rowMap.set(key, []);
-      rowMap.get(key).push(span.dataset.name);
+    if (!containerRef.current) return;
+    if (names.length <= 1) { setRows([names]); return; }
+    const availW = wrapperRef.current
+      ? wrapperRef.current.getBoundingClientRect().width
+      : (maxWidth || 160);
+    containerRef.current.style.width = availW + "px";
+    requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      const spans = containerRef.current.querySelectorAll("[data-name]");
+      const rowMap = new Map();
+      spans.forEach((span) => {
+        const key = Math.round(span.getBoundingClientRect().top);
+        if (!rowMap.has(key)) rowMap.set(key, []);
+        rowMap.get(key).push(span.dataset.name);
+      });
+      const sorted = [...rowMap.entries()]
+        .sort((a, b) => a[0] - b[0])
+        .map(([, v]) => v);
+      setRows(sorted);
     });
-    const sorted = [...rowMap.entries()].sort((a, b) => a[0] - b[0]).map(([, v]) => v);
-    setRows(sorted);
   }, [names.join(","), maxWidth]);
 
-  const measureStyle = {
-    position: "absolute",
-    visibility: "hidden",
-    pointerEvents: "none",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    // Use the passed maxWidth so measurement matches the actual column width
-    width: maxWidth ? `${maxWidth}px` : "100%",
-    gap: "0",
-  };
-
   return (
-    <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
-      <div ref={containerRef} aria-hidden="true" style={measureStyle}>
+    <div ref={wrapperRef} style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+
+      <div
+        ref={containerRef}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          visibility: "hidden",
+          pointerEvents: "none",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          width: "160px",
+          gap: "0",
+        }}
+      >
         {names.map((name) => (
-          <span key={name} data-name={name} style={{ fontSize: "15px", padding: "0 4px", whiteSpace: "nowrap" }}>
+          <span key={name} data-name={name} style={{ fontSize: isMobile ? "15px" : "18px", padding: "0 4px", whiteSpace: "nowrap" }}>
             {name} County
           </span>
         ))}
       </div>
+
       {rows.map((row, ri) => (
-        <div key={ri} style={{ display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "nowrap" }}>
+        <div key={ri} style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          width: "100%",
+          gap: "0",
+        }}>
           {row.map((name, i) => (
-            <span key={name} style={{ display: "flex", alignItems: "center" }}>
+            <span key={name} style={{ display: "flex", alignItems: "center", flexShrink: 1, minWidth: 0 }}>
               {i > 0 && (
                 <span style={{
                   color: "#3f5b74",
-                  fontSize: "15px",
+                  fontSize: isMobile ? "15px" : "18px",
                   margin: "0 6px",
                   lineHeight: 1,
                   userSelect: "none",
+                  flexShrink: 0,
                 }}>✦</span>
               )}
               <span style={{
                 color: "#c5e5f4",
-                fontSize: "15px",
+                fontSize: isMobile ? "15px" : "18px",
                 letterSpacing: "0.06em",
                 lineHeight: 1.5,
-                whiteSpace: "nowrap",
+                whiteSpace: "normal",
+                overflowWrap: "break-word",
+                wordBreak: "break-word",
+                textAlign: "center",
               }}>
                 {name} County
               </span>
@@ -461,19 +490,44 @@ export default function CaliforniaMap() {
   const [hovered, setHovered] = useState(null);
   const [panelText, setPanelText] = useState(GROUP_TEXT.default);
   const [fadeIn, setFadeIn] = useState(true);
-  const [clickedSum, setClickedSum] = useState(0);
-  const [clickedKeys, setClickedKeys] = useState(new Set());
+  const [clickedEntries, setClickedEntries] = useState([]);
+  const [selected, setSelected] = useState(null);
 
-  const { counties: groupCounties, groupKey: hoveredGroupKey } = getGroupInfo(hovered);
+  const winW = useWindowWidth();
+  const isMobile = winW < 600;
+  const OUTER_PAD = isMobile ? 16 : 48;
+  const CARD_PAD = 24;
+  const mapW = Math.min(420, winW - OUTER_PAD - CARD_PAD);
+  const mapH = Math.round(mapW * (715 / 420));
+
+  const clickedSum = clickedEntries.reduce((s, e) => s + e.number, 0);
+  const clickedKeySet = new Set(clickedEntries.map(e => e.key));
+  const panelCounty = isMobile ? selected : hovered;
+  const isAnySelected = panelCounty !== null;
+  const addToTotal = (countyName) => {
+    const groupKey = COUNTY_GROUP[countyName];
+    const dedupeKey = groupKey || countyName;
+    const n = COUNTY_NUMBER[countyName];
+    if (n == null) return;
+    setClickedEntries(prev => {
+      if (prev.some(e => e.key === dedupeKey)) return prev;
+      const groupMembers = GROUPS[dedupeKey]?.counties;
+      const label = groupMembers && groupMembers.length > 1
+        ? groupMembers.sort().join(" · ")
+        : countyName;
+      return [...prev, { key: dedupeKey, label, number: n }];
+    });
+  };
+
+  const { counties: groupCounties, groupKey: hoveredGroupKey } = getGroupInfo(panelCounty);
   const isAnyHovered = hovered !== null;
+  const isAnyPanelActive = isAnySelected;
   const countyNames = Object.keys(COUNTY_PATHS);
-  const highlightedNames = hovered ? [...groupCounties].sort() : [];
+  const highlightedNames = panelCounty ? [...groupCounties].sort() : [];
 
-  const hoveredNumber = hovered != null ? COUNTY_NUMBER[hovered] : null;
+  const hoveredNumber = panelCounty != null ? COUNTY_NUMBER[panelCounty] : null;
   const displayNumber = hoveredNumber != null ? hoveredNumber.toLocaleString() : "✕";
   const hasNumber = hoveredNumber != null;
-
-  // Fade-swap panel text when group changes
   useEffect(() => {
     const newText = hoveredGroupKey
       ? (GROUP_TEXT[hoveredGroupKey] ?? GROUP_TEXT.default)
@@ -495,25 +549,28 @@ export default function CaliforniaMap() {
       alignItems: "center",
       justifyContent: "center",
       fontFamily: "Georgia, \'Times New Roman\', serif",
-      padding: "24px",
+      padding: isMobile ? "12px 8px" : "24px",
       gap: "0",
+      boxSizing: "border-box",
+      width: "100%",
+      overflowX: "hidden",
     }}>
 
       {/* Title */}
       <div style={{ textAlign: "center", marginBottom: "16px" }}>
         <h1 style={{
           color: "#c5e5f4",
-          fontSize: "24px",
+          fontSize: isMobile ? "18px" : "26px",
           fontWeight: 400,
-          letterSpacing: "0.25em",
+          letterSpacing: isMobile ? "0.15em" : "0.25em",
           textTransform: "uppercase",
           margin: 0,
           textShadow: "0 2px 20px rgba(200,180,130,0.2)",
         }}>California MSVI Listings</h1>
         <p style={{
           color: "#7a9ab0",
-          fontSize: "10px",
-          letterSpacing: "0.4em",
+          fontSize: isMobile ? "9px" : "17px",
+          letterSpacing: isMobile ? "0.2em" : "0.4em",
           textTransform: "uppercase",
           margin: "5px 0 0",
         }}>58 Counties · Hover to Select</p>
@@ -522,11 +579,13 @@ export default function CaliforniaMap() {
       {/* Map + Panel row */}
       <div style={{
         display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-start",
-        gap: "20px",
+        flexDirection: isMobile ? "column" : "row",
+        alignItems: isMobile ? "center" : "flex-start",
+        gap: isMobile ? "12px" : "20px",
         flexWrap: "wrap",
         justifyContent: "center",
+        width: "100%",
+        maxWidth: "960px",
       }}>
 
         {/* Map card */}
@@ -540,8 +599,8 @@ export default function CaliforniaMap() {
         }}>
           <svg
             viewBox="0 0 93.572 159.56"
-            width="420"
-            height="715"
+            width={mapW}
+            height={mapH}
             style={{ display: "block" }}
           >
             <defs>
@@ -578,26 +637,19 @@ export default function CaliforniaMap() {
                   key={name}
                   d={COUNTY_PATHS[name]}
                   fill={fill}
-                  fillOpacity={isAnyHovered && !inGroup ? 0.32 : 0.88}
+                  fillOpacity={(isAnyHovered || (isMobile && isAnyPanelActive)) && !inGroup ? 0.32 : 0.88}
                   stroke="#111"
                   strokeWidth={inGroup ? "0.22" : "0.09"}
                   strokeOpacity={0.9}
                   filter={inGroup ? "url(#glow)" : "url(#drop)"}
                   style={{ cursor: "pointer", transition: "fill-opacity 0.18s, stroke-width 0.15s" }}
-                  onMouseEnter={() => setHovered(name)}
-                  onMouseLeave={() => setHovered(null)}
+                  onMouseEnter={() => { if (!isMobile) setHovered(name); }}
+                  onMouseLeave={() => { if (!isMobile) setHovered(null); }}
                   onClick={() => {
-                    const groupKey = COUNTY_GROUP[name];
-                    const dedupeKey = groupKey || name;
-                    const n = COUNTY_NUMBER[name];
-                    if (n != null) {
-                      setClickedKeys(prev => {
-                        if (prev.has(dedupeKey)) return prev;
-                        const next = new Set(prev);
-                        next.add(dedupeKey);
-                        setClickedSum(s => s + n);
-                        return next;
-                      });
+                    if (isMobile) {
+                      setSelected(name);
+                    } else {
+                      addToTotal(name);
                     }
                   }}
                 />
@@ -631,8 +683,9 @@ export default function CaliforniaMap() {
 
         {/* Info panel */}
         <div style={{
-          width: "280px",
-          alignSelf: "stretch",
+          width: isMobile ? Math.min(mapW + CARD_PAD, winW - OUTER_PAD) : "320px",
+          alignSelf: isMobile ? "center" : "stretch",
+          boxSizing: "border-box",
           background: "rgba(63,91,116,0.15)",
           borderRadius: "12px",
           border: "1px solid rgba(197,229,244,0.14)",
@@ -640,13 +693,13 @@ export default function CaliforniaMap() {
           boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
           display: "flex",
           flexDirection: "column",
-          minHeight: "500px",
+          minHeight: isMobile ? "auto" : "500px",
         }}>
 
           {/* Top 1/3 — Region Info */}
           <div style={{
             flex: "0 0 33.333%",
-            borderBottom: isAnyHovered ? "1px solid rgba(197,229,244,0.14)" : "none",
+            borderBottom: isAnyPanelActive ? "1px solid rgba(197,229,244,0.14)" : "none",
             paddingBottom: "14px",
             display: "flex",
             flexDirection: "column",
@@ -654,7 +707,7 @@ export default function CaliforniaMap() {
           }}>
             <p style={{
               color: "#7a9ab0",
-              fontSize: "9px",
+              fontSize: isMobile ? "9px" : "17px",
               letterSpacing: "0.35em",
               textTransform: "uppercase",
               margin: "0 0 10px 0",
@@ -662,7 +715,7 @@ export default function CaliforniaMap() {
               flexShrink: 0,
             }}>Region Info</p>
 
-            {isAnyHovered ? (
+            {isAnyPanelActive ? (
               <div style={{
                 display: "flex",
                 alignItems: "flex-start",
@@ -681,7 +734,7 @@ export default function CaliforniaMap() {
                   overflow: "hidden",
                   alignSelf: "center",
                 }}>
-                  <NameRow names={highlightedNames} maxWidth={155} />
+                  <NameRow names={highlightedNames} maxWidth={isMobile ? Math.round((mapW - 16) * 0.667) : 155} isMobile={isMobile} />
                 </div>
 
                 {/* Divider */}
@@ -705,7 +758,7 @@ export default function CaliforniaMap() {
                 }}>
                   <span style={{
                     color: "#7a9ab0",
-                    fontSize: "8px",
+                    fontSize: isMobile ? "8px" : "11px",
                     letterSpacing: "0.25em",
                     textTransform: "uppercase",
                     lineHeight: 1,
@@ -713,13 +766,41 @@ export default function CaliforniaMap() {
                   }}>Listings</span>
                   <span style={{
                     color: hasNumber ? "#d8c7ac" : "#c63947",
-                    fontSize: "20px",
+                    fontSize: isMobile ? "20px" : "23px",
                     fontWeight: "600",
                     letterSpacing: "0.02em",
                     lineHeight: 1.1,
                   }}>
                     {displayNumber}
                   </span>
+                  {isMobile && hasNumber && (() => {
+                    const gk = COUNTY_GROUP[panelCounty];
+                    const dk = gk || panelCounty;
+                    const alreadyAdded = clickedEntries.some(e => e.key === dk);
+                    return (
+                      <button
+                        onClick={() => addToTotal(panelCounty)}
+                        disabled={alreadyAdded}
+                        style={{
+                          marginTop: "4px",
+                          background: alreadyAdded ? "rgba(197,229,244,0.04)" : "rgba(197,229,244,0.12)",
+                          border: "1px solid rgba(197,229,244,0.2)",
+                          borderRadius: "6px",
+                          color: alreadyAdded ? "#3f5b74" : "#c5e5f4",
+                          fontSize: isMobile ? "9px" : "17px",
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          padding: "5px 6px",
+                          cursor: alreadyAdded ? "default" : "pointer",
+                          width: "100%",
+                          lineHeight: 1.2,
+                          textAlign: "center",
+                        }}
+                      >
+                        {alreadyAdded ? "Added" : "+ Add"}
+                      </button>
+                    );
+                  })()}
                 </div>
               </div>
             ) : (
@@ -730,7 +811,7 @@ export default function CaliforniaMap() {
               }}>
                 <p style={{
                   color: "#3f5b74",
-                  fontSize: "13px",
+                  fontSize: isMobile ? "13px" : "16px",
                   margin: 0,
                   lineHeight: 1.5,
                   fontStyle: "italic",
@@ -740,7 +821,7 @@ export default function CaliforniaMap() {
           </div>
 
           {/* Bottom 2/3 — Data fields, only when hovered */}
-          {isAnyHovered && (() => {
+          {isAnyPanelActive && (() => {
             const groupKey = COUNTY_GROUP[hovered];
             const fields = DATA_FIELDS[groupKey] || DATA_FIELDS[hovered] || ["Corporation Names"];
             return (
@@ -753,7 +834,7 @@ export default function CaliforniaMap() {
               }}>
                 <p style={{
                   color: "#7a9ab0",
-                  fontSize: "9px",
+                  fontSize: isMobile ? "9px" : "17px",
                   letterSpacing: "0.35em",
                   textTransform: "uppercase",
                   margin: "0 0 12px 0",
@@ -778,7 +859,7 @@ export default function CaliforniaMap() {
                     <div>
                       <p style={{
                         color: "#c5e5f4",
-                        fontSize: "13px",
+                        fontSize: isMobile ? "13px" : "16px",
                         fontWeight: "600",
                         margin: "0 0 2px 0",
                         lineHeight: 1.3,
@@ -786,7 +867,7 @@ export default function CaliforniaMap() {
                       }}>{label}</p>
                       <p style={{
                         color: "#7a9ab0",
-                        fontSize: "11px",
+                        fontSize: isMobile ? "11px" : "14px",
                         margin: 0,
                         lineHeight: 1.4,
                       }}>{FIELD_DESC[label]}</p>
@@ -800,10 +881,11 @@ export default function CaliforniaMap() {
         </div>
 
         {/* Running total panel */}
-        {clickedKeys.size > 0 && (
+        {clickedEntries.length > 0 && (
           <div style={{
-            width: "120px",
-            alignSelf: "flex-start",
+            width: isMobile ? Math.min(mapW + CARD_PAD, winW - OUTER_PAD) : "400px",
+            alignSelf: isMobile ? "center" : "flex-start",
+            boxSizing: "border-box",
             background: "rgba(63,91,116,0.15)",
             borderRadius: "12px",
             border: "1px solid rgba(197,229,244,0.14)",
@@ -811,46 +893,101 @@ export default function CaliforniaMap() {
             boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            gap: "8px",
+            gap: "0",
           }}>
+            {/* Header */}
+            <div style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              marginBottom: "10px",
+            }}>
+              <div>
+                <p style={{
+                  color: "#7a9ab0",
+                  fontSize: isMobile ? "8px" : "16px",
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  margin: "0 0 4px 0",
+                  lineHeight: 1,
+                }}>Total Listings</p>
+                <p style={{
+                  color: "#d8c7ac",
+                  fontSize: isMobile ? "26px" : "34px",
+                  fontWeight: "700",
+                  margin: 0,
+                  lineHeight: 1,
+                  letterSpacing: "0.02em",
+                }}>{clickedSum.toLocaleString()}</p>
+              </div>
+              <button
+                onClick={() => setClickedEntries([])}
+                style={{
+                  background: "rgba(197,229,244,0.07)",
+                  border: "1px solid rgba(197,229,244,0.15)",
+                  borderRadius: "6px",
+                  color: "#7a9ab0",
+                  fontSize: isMobile ? "9px" : "17px",
+                  letterSpacing: "0.08em",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  marginLeft: "8px",
+                }}
+              >Reset</button>
+            </div>
+
             <p style={{
-              color: "#7a9ab0",
-              fontSize: "8px",
-              letterSpacing: "0.3em",
+              color: "#506878",
+              fontSize: isMobile ? "9px" : "17px",
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
-              margin: 0,
-              lineHeight: 1.4,
-              textAlign: "center",
-            }}>Total Listings</p>
-            <p style={{
-              color: "#d8c7ac",
-              fontSize: "26px",
-              fontWeight: "700",
-              margin: 0,
-              lineHeight: 1.1,
-              letterSpacing: "0.02em",
-            }}>{clickedSum.toLocaleString()}</p>
-            <p style={{
-              color: "#3f5b74",
-              fontSize: "10px",
-              margin: 0,
-              letterSpacing: "0.05em",
-            }}>{clickedKeys.size} {clickedKeys.size !== 1 ? "counties/groups" : "county/group"}</p>
-            <button
-              onClick={() => { setClickedSum(0); setClickedKeys(new Set()); }}
-              style={{
-                marginTop: "4px",
-                background: "rgba(197,229,244,0.07)",
-                border: "1px solid rgba(197,229,244,0.15)",
-                borderRadius: "6px",
-                color: "#7a9ab0",
-                fontSize: "10px",
-                letterSpacing: "0.08em",
-                padding: "4px 10px",
-                cursor: "pointer",
-              }}
-            >Reset</button>
+              margin: "0 0 8px 0",
+              lineHeight: 1,
+            }}>{clickedEntries.length} {clickedEntries.length !== 1 ? "counties/groups" : "county/group"}</p>
+
+            {/* Divider */}
+            <div style={{ height: "1px", background: "rgba(197,229,244,0.1)", marginBottom: "10px" }}/>
+
+            {/* Entry list */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "0",
+              maxHeight: "360px",
+              overflowY: "auto",
+            }}>
+              {clickedEntries.map((entry, i) => (
+                <div key={entry.key} style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  padding: "7px 0",
+                  borderBottom: i < clickedEntries.length - 1
+                    ? "1px solid rgba(197,229,244,0.07)"
+                    : "none",
+                  gap: "8px",
+                }}>
+                  <p style={{
+                    color: "#c5e5f4",
+                    fontSize: isMobile ? "11px" : "19px",
+                    margin: 0,
+                    lineHeight: 1.35,
+                    flex: 1,
+                    letterSpacing: "0.02em",
+                  }}>{entry.label}</p>
+                  <p style={{
+                    color: "#d8c7ac",
+                    fontSize: isMobile ? "12px" : "20px",
+                    fontWeight: "600",
+                    margin: 0,
+                    lineHeight: 1.35,
+                    flexShrink: 0,
+                    letterSpacing: "0.02em",
+                  }}>{entry.number.toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 

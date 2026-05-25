@@ -24,7 +24,9 @@ const PriceScale = () => {
     <div className="d-flex flex-column justify-content-center text-center py-lg-4 py-3 bg-primary-dark">
         <Form.Group>
             <Form.Label>
-                <div className="text-light py-lg-5">
+
+                <h1 className="lead text-light pt-2 fs-2">Slide below to see your quote</h1>
+                <div className="text-light py-lg-4">
                     <h1 className="lead">Listings</h1>
                     <h1 className="display-1 text-primary fw-bold">{value}</h1>
                 </div>
@@ -57,7 +59,6 @@ const PriceScale = () => {
                     })}
                 </div>
             </div>
-
         </Form.Group>
     </div>
     )
