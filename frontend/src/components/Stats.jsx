@@ -1,4 +1,5 @@
 import StatsGroup from '../components/StatsGroup.jsx'
+import DataIncluded from '../components/DataIncluded.jsx'
 
 const Stats = () => {
     const STATS = [
@@ -16,7 +17,8 @@ const Stats = () => {
                 </div>
                 <hr className="d-md-none" />
                 <div className="col-12 col-md-6">
-                    <p className="me-md-5 pe-md-3 fs-6 fs-lg-5 lead">More than 23,000 HOAs, COAs, and developments are registered with Marketing Solution VI, meaning you now have access to thousands of properties to add to your client list. We regularly contact communities and scour online listings to find new developments and information to update our list, keeping your records accurate and as up-to-date as possible.<br/><br/>Our list includes a wealth of information, including development type, registration date, number of units, cross streets, contact information, and more! You will have the most updated data, complete with the managing agent's information and a registered contact address, for every property that you want, all in one place. Keep your outreach organized with our CID list and map.</p>
+                    <p className="me-xl-5 pe-lg-3 fs-6 fs-lg-5 lead">More than 23,000 HOAs, COAs, and developments are registered with Marketing Solution VI, meaning you now have access to thousands of properties to add to your client list. We regularly contact communities and scour online listings to find new developments and information to update our list, keeping your records accurate and as up-to-date as possible.</p>
+                    <DataIncluded />
                 </div>
             </div>
 
@@ -25,3 +27,5 @@ const Stats = () => {
 }
 
 export default Stats
+
+/** Our list includes a wealth of information, including development type, registration date, number of units, cross streets, contact information, and more! You will have the most updated data, complete with the managing agent's information and a registered contact address, for every property that you want, all in one place. Keep your outreach organized with our CID list and map.</p> */

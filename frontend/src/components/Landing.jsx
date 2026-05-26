@@ -32,19 +32,3 @@ const Landing = () => {
 }
 
 export default Landing
-
-/**
- * <h1 class="d-none d-lg-block display-1 ">Marketing Solution VI</h1>
-                    <hr className="d-none d-lg-block border-1 border-dark opacity-75 my-1 w-25 mx-auto pb-lg-3 pt-lg-2" />
-                    <h1 class="d-none d-lg-block display-5 text-muted"><i>The</i> HOA Marketing Solution</h1>
-
-                    <h1 class="d-none d-md-block d-lg-none display-2 card-title fw-bold">Marketing Solution VI</h1>
-                    <hr className="d-none d-md-block d-lg-none border-1 border-dark opacity-75 my-1 w-25 mx-auto pb-2" />
-                    <h1 class="d-none d-md-block d-lg-none text-muted"><i>The</i> HOA Marketing Solution</h1>
-
-                    <h1 class="d-none d-sm-block d-md-none display-3 my-0 card-title fw-bold pb-1">Marketing Solution VI</h1>
-                    <p class="d-none d-sm-block d-md-none text-muted"><i>The</i> HOA Marketing Solution</p>
-                    
-                    <h1 class="d-sm-none display-5 my-0 card-title fw-bold">Marketing Solution VI</h1>
-                    <p class="d-sm-none text-muted"></p>
- */

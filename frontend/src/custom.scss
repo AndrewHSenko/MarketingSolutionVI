@@ -133,6 +133,28 @@ hr, p, h5, h4 {
     background-blend-mode: screen, color-dodge, overlay, difference, normal;
 }
 
+.card {
+  padding: 0;
+}
+
+.statcard {
+
+  max-width: 280px;
+}
+
+.stattop {
+  width: 100%;
+  height: clamp(60px, 7vw, 100px);
+  object-fit: contain;
+  padding-top: 1rem;
+
+@media (max-width: 768px) {
+  .stattop {
+    height: clamp(70px, 12vw, 120px);
+  }
+  }
+}
+
 .btn:hover {
     background-color: $info-color;
 }
