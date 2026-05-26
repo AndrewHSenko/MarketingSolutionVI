@@ -21,6 +21,11 @@ $sizes: (
   auto: auto,
 );
 
+$panel-bg:           rgba(63, 91, 116, 0.15);
+$panel-border:       rgba(197, 229, 244, 0.14);
+$divider:            rgba(197, 229, 244, 0.10);
+$muted:              #7a9ab0;
+
 @use "../node_modules/bootstrap/scss/bootstrap" as * with (
   $primary: $primary-color,
   $secondary: $secondary-color,
@@ -157,4 +162,369 @@ hr, p, h5, h4 {
 
 .btn:hover {
     background-color: $info-color;
+}
+
+/* Beginning of Map-related CSS */
+// ── Root ─────────────────────────────────────────────────────────────────────
+.ca-map-root {
+  min-height: 100vh;
+  background: $primary-dark-color;
+  overflow-x: hidden;
+}
+ 
+// ── Title ────────────────────────────────────────────────────────────────────
+.ca-map-title {
+  color: $primary-color;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 20px rgba(200, 180, 130, 0.2);
+  font-size: 18px;
+ 
+  @media (min-width: 600px) {
+    font-size: 26px;
+    letter-spacing: 0.25em;
+  }
+}
+ 
+.ca-map-subtitle {
+  color: $muted;
+  letter-spacing: 0.2em;
+  font-size: 9px;
+ 
+  @media (min-width: 600px) {
+    font-size: 17px;
+    letter-spacing: 0.4em;
+  }
+}
+ 
+// ── Map card ─────────────────────────────────────────────────────────────────
+.ca-map-card {
+  background: rgba(63, 91, 116, 0.12);
+  border-radius: 12px;
+  border: 1px solid $panel-border;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+ 
+// ── Info panel ───────────────────────────────────────────────────────────────
+.ca-info-panel {
+  background: $panel-bg;
+  border-radius: 12px;
+  border: 1px solid $panel-border;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  min-height: auto;
+ 
+  @media (min-width: 600px) {
+    min-height: 500px;
+    width: 320px !important;
+    align-self: stretch !important;
+  }
+}
+ 
+// ── Region Info section ───────────────────────────────────────────────────────
+.ca-region-label {
+  color: $muted;
+  letter-spacing: 0.35em;
+  line-height: 1;
+  font-size: 9px;
+ 
+  @media (min-width: 600px) {
+    font-size: 17px;
+  }
+}
+ 
+.ca-region-placeholder {
+  color: $primary-dark-color;
+  font-style: italic;
+  font-size: 13px;
+ 
+  @media (min-width: 600px) {
+    font-size: 21px;
+  }
+}
+ 
+.ca-region-border {
+  border-bottom: 1px solid $panel-border;
+}
+ 
+// ── County name row ───────────────────────────────────────────────────────────
+.ca-county-name {
+  color: $primary-color;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-align: center;
+  font-size: 15px;
+ 
+  @media (min-width: 600px) {
+    font-size: 18px;
+  }
+}
+ 
+.ca-county-star {
+  color: $primary-dark-color;
+  margin: 0 6px;
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+  font-size: 15px;
+ 
+  @media (min-width: 600px) {
+    font-size: 18px;
+  }
+}
+ 
+.ca-measure-hidden {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 160px;
+  gap: 0;
+}
+ 
+.ca-measure-span {
+  font-size: 15px;
+  padding: 0 4px;
+  white-space: nowrap;
+ 
+  @media (min-width: 600px) {
+    font-size: 18px;
+  }
+}
+ 
+// ── Listings section ──────────────────────────────────────────────────────────
+.ca-listings-label {
+  color: $muted;
+  letter-spacing: 0.25em;
+  line-height: 1;
+  text-align: center;
+  font-size: 8px;
+ 
+  @media (min-width: 600px) {
+    font-size: 11px;
+  }
+}
+ 
+.ca-listings-number {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  font-size: 20px;
+ 
+  @media (min-width: 600px) {
+    font-size: 23px;
+  }
+}
+ 
+.ca-listings-number--valid  { color: $secondary-color; }
+.ca-listings-number--empty  { color: $danger-color; }
+ 
+// ── Add to total button (mobile) ──────────────────────────────────────────────
+.ca-add-btn {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(197, 229, 244, 0.2);
+ 
+  &:not(:disabled) {
+    background: rgba(197, 229, 244, 0.12);
+    color: $primary-color;
+    cursor: pointer;
+  }
+ 
+  &:disabled {
+    background: rgba(197, 229, 244, 0.04);
+    color: $primary-dark-color;
+    cursor: default;
+  }
+}
+ 
+// ── Data Includes section ─────────────────────────────────────────────────────
+.ca-data-label {
+  color: $muted;
+  letter-spacing: 0.35em;
+  font-size: 9px;
+ 
+  @media (min-width: 600px) {
+    font-size: 17px;
+  }
+}
+ 
+.ca-data-field-row {
+  border-bottom: 1px solid rgba(197, 229, 244, 0.07);
+}
+ 
+.ca-data-field-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: $primary-dark-color;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+ 
+.ca-data-field-name {
+  color: $primary-color;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  font-size: 13px;
+ 
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+}
+ 
+.ca-data-field-desc {
+  color: $muted;
+  line-height: 1.4;
+  font-size: 11px;
+ 
+  @media (min-width: 600px) {
+    font-size: 14px;
+  }
+}
+ 
+// ── Vertical divider ──────────────────────────────────────────────────────────
+.ca-vdivider {
+  width: 1px;
+  background: rgba(197, 229, 244, 0.15);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+ 
+.ca-hdivider {
+  height: 1px;
+  background: $divider;
+}
+ 
+// ── Total Listings panel ──────────────────────────────────────────────────────
+.ca-total-panel {
+  background: $panel-bg;
+  border-radius: 12px;
+  border: 1px solid $panel-border;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+ 
+  @media (min-width: 600px) {
+    width: 400px !important;
+    align-self: flex-start !important;
+  }
+}
+ 
+.ca-total-label {
+  color: $muted;
+  letter-spacing: 0.3em;
+  line-height: 1.4;
+  font-size: 8px;
+ 
+  @media (min-width: 600px) {
+    font-size: 16px;
+  }
+}
+ 
+.ca-total-sum {
+  color: $secondary-color;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-size: 26px;
+ 
+  @media (min-width: 600px) {
+    font-size: 34px;
+  }
+}
+ 
+.ca-total-count {
+  color: lighten($primary-dark-color, 10%);
+  letter-spacing: 0.05em;
+  font-size: 9px;
+ 
+  @media (min-width: 600px) {
+    font-size: 17px;
+  }
+}
+ 
+.ca-total-reset {
+  background: rgba(197, 229, 244, 0.07);
+  border: 1px solid rgba(197, 229, 244, 0.15);
+  border-radius: 6px;
+  color: $muted;
+  letter-spacing: 0.08em;
+  font-size: 9px;
+ 
+  @media (min-width: 600px) {
+    font-size: 17px;
+  }
+ 
+  &:hover {
+    background: rgba(197, 229, 244, 0.14);
+    color: $primary-color;
+  }
+}
+ 
+.ca-entry-name {
+  color: $primary-color;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  font-size: 11px;
+ 
+  @media (min-width: 600px) {
+    font-size: 19px;
+  }
+}
+ 
+.ca-entry-number {
+  color: $secondary-color;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  font-size: 12px;
+ 
+  @media (min-width: 600px) {
+    font-size: 20px;
+  }
+}
+ 
+// ── Layout utilities ──────────────────────────────────────────────────────────
+.ca-names-col {
+  flex: 0 0 66.666%;
+  min-width: 0;
+  padding-right: 8px;
+}
+ 
+.ca-listings-col {
+  flex: 0 0 33.333%;
+  padding-left: 8px;
+  gap: 4px;
+}
+ 
+.ca-region-top {
+  flex: 0 0 33.333%;
+  overflow: hidden;
+}
+ 
+.ca-data-bottom {
+  flex: 1 1 66.666%;
+}
+ 
+.ca-entry-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+ 
+.ca-name-wrap-row {
+  gap: 2px;
+}
+ 
+.ca-name-span {
+  flex-shrink: 1;
+  min-width: 0;
 }
