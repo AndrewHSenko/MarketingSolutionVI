@@ -1,6 +1,7 @@
 import LandingPage from './pages/LandingPage.jsx'
 import AboutUs from './pages/AboutUs.jsx'
 import NotFound from './pages/NotFound.jsx'
+import Login from './pages/Login.jsx'
 
 const routes = [
     {
@@ -18,7 +19,7 @@ const routes = [
     },
     {
         path: 'myvi',
-        element: <NotFound /> // Will host the user account management pages
+        element: <Login /> // Will host the user account management pages
     },
     {
         path: '*',

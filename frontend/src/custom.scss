@@ -136,3 +136,139 @@ hr, p, h5 {
 .btn:hover {
     background-color: $info-color;
 }
+
+// ─── Animations ─────────────────────────────────────────────────────────────
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+// ─── Layout ─────────────────────────────────────────────────────────────────
+.msvi-root {
+  background: transparent;
+}
+
+.msvi-panel {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem 2.75rem;
+  border: 1.5px solid $light-gray-color;
+  border-radius: 0.5rem;
+  animation: panelIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+// ─── Title ──────────────────────────────────────────────────────────────────
+.msvi-title {
+  color: $primary-dark-color;
+}
+
+.msvi-title-bar {
+  height: 3px;
+  width: 48px;
+  background: linear-gradient(90deg, $primary-dark-color, $primary-color);
+  border-radius: 2px;
+  margin-top: 0.4rem;
+}
+
+// ─── Labels ─────────────────────────────────────────────────────────────────
+.msvi-label {
+  color: $gray-color;
+  letter-spacing: 0.1em;
+}
+
+// ─── Inputs ─────────────────────────────────────────────────────────────────
+.msvi-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.msvi-input {
+  padding: 0.75rem 1rem;
+  width: 100%;
+  background-color: $light-color;
+  color: $dark-color;
+  border-color: $light-gray-color;
+
+  &:focus {
+    border-color: $primary-dark-color;
+    box-shadow: 0 0 0 0.2rem rgba($primary-dark-color, 0.15);
+  }
+
+  &--has-toggle {
+    padding-right: 4.5rem;
+  }
+}
+
+.msvi-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: $light-gray-color;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $primary-dark-color;
+  }
+}
+
+// ─── Buttons ────────────────────────────────────────────────────────────────
+.msvi-btn-login {
+  padding: 0.75rem 2rem;
+  background-color: $primary-dark-color;
+  border-color: $primary-dark-color;
+  color: $light-color;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary-dark-color, 8%);
+    border-color: darken($primary-dark-color, 8%);
+    color: $light-color;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.99);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+  }
+}
+
+.msvi-btn-forgot {
+  color: $gray-color;
+  border-color: $light-gray-color;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+
+  &:hover {
+    color: $primary-dark-color;
+    border-color: $primary-dark-color;
+    background-color: rgba($primary-color, 0.15);
+  }
+}
+
+// ─── Error ──────────────────────────────────────────────────────────────────
+.msvi-error-box {
+  background: rgba($danger-color, 0.07);
+  border: 1.5px solid rgba($danger-color, 0.3);
+  border-radius: 0.375rem;
+  color: $danger-color;
+  animation: fadeUp 0.25s both;
+}
+
+// ─── Confirmation ────────────────────────────────────────────────────────────
+.msvi-confirm {
+  font-size: 0.9rem;
+  color: $success-color;
+  animation: fadeUp 0.25s both;
+}
