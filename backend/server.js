@@ -1,18 +1,30 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './db/connect.js'
+import User from './models/User.js'
 
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 3500
 
-app.get('/myvi', (req, res) => {
-    res.send("Server is ready")
+app.use(express.json())
+
+app.post('/api/myvi', async (req, res) => {
+    const user = req.body
+    if (!user.username || !user.password) {
+        return res.status(400).json({success: false, message: "Please provide a username and password"})
+    }
+    const newUser = new User(user)
+    try {
+        await newUser.save();
+        res.status(201).json({ success: true, data: newUser})
+    } catch (error) {
+        console.error("Error in creating new user: ", error.message)
+        res.status(500).json({success:false, message: "Server error"})
+    }
 })
 
-app.post()
-
-//23:33 Good job, Andrew. Keep it up!
+//37:02
 
 // if (process.env.NODE_ENV === "production") {
 //     console.log("In production")
