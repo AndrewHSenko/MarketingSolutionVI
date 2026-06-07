@@ -72,6 +72,11 @@ $muted:              #7a9ab0;
         font-size: $value !important;
       }
     }
+    @each $color, $value in $theme-colors {
+      .bg-#{$breakpoint}-#{$color} {
+        background-color: $value !important;
+      }
+    }
 
     .text-#{$breakpoint}-wrap {
       white-space: normal !important;
