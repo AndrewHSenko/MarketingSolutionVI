@@ -3,12 +3,11 @@ import { Form } from 'react-bootstrap';
 import PriceBox from './PriceBox.jsx'
 
 const BOXES = [
-  { label: "101-350",   price: "$450.00",  min: 1,    max: 350  },
-  { label: "350-999",   price: "$598.00",  min: 351,  max: 999  },
-  { label: "1000-1999", price: "$675.00",  min: 1000, max: 1999 },
-  { label: "2000-3499", price: "$790.00",  min: 2000, max: 3499 },
-  { label: "3500-4999", price: "$875.00",  min: 3500, max: 4999 },
-  { label: "5000+",     price: "$950.00+", min: 5000, max: 6000 },
+  { label: "1-250",   price: "$250.00",  min: 1,    max: 250  },
+  { label: "251-500",   price: "$425.00",  min: 251,  max: 500  },
+  { label: "501-1000", price: "$650.00",  min: 501, max: 1000 },
+  { label: "1001-3500", price: "$850.00",  min: 1000, max: 3500 },
+  { label: "3500+",     price: "$975.00+", min: 3500, max: 4000 },
 ];
 
 // Determines which box the current value is in
@@ -34,7 +33,7 @@ const PriceScale = () => {
             <div className="w-lg-75 w-100 mx-auto px-md-5 px-4">
                 <Form.Range
                 min={0}
-                max={6000}
+                max={4000}
                 step={1}
                 value={value}
                 onChange={(e) => setValue(Number(e.target.value))}
@@ -44,8 +43,7 @@ const PriceScale = () => {
                     <span>1000</span>
                     <span>2000</span>
                     <span>3000</span>
-                    <span>4000</span>
-                    <span>5000+</span>
+                    <span>4000+</span>
                     <span></span>
                 </div>
                 <div className="row g-3 py-lg-5 justify-content-center align-items-center">

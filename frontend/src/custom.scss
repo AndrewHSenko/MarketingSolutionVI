@@ -4,7 +4,7 @@ $primary-dark-color: #3f5b74;
 $success-color: #54af46;
 $danger-color: #c63947;
 $warning-color: #efba18;
-$info-color: #b2cbfd;
+$info-color: #7bb7ff;
 $light-color: #f7f7f7;
 $dark-color: #272626;
 $light-gray-color: #c8c4c4;
@@ -533,3 +533,20 @@ hr, p, h5, h4 {
   flex-shrink: 1;
   min-width: 0;
 }
+
+// For landing section
+.msvi-stat-pill { transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.msvi-stat-pill:hover { background: var(--bs-primary-dark) !important; border-color: var(--bs-primary-dark) !important; }
+.msvi-stat-pill:hover .msvi-stat-num,
+.msvi-stat-pill:hover .msvi-stat-label { color: #fff !important; }
+.msvi-data-card { transition: background 0.2s, border-color 0.2s; }
+.msvi-data-card:hover { background: #e2eff7 !important; border-color: rgba(90,154,184,0.55) !important; }
+.msvi-stat-num  { font-size: clamp(2.67rem, 6.67vw, 3.67rem); color: #3f7a96; line-height: 1; }
+.msvi-stat-label { font-size: 0.96rem; color: rgba(26,42,51,0.55); }
+.msvi-card-img  {
+  width: 96px; height: 96px; object-fit: contain; display: block; flex-shrink: 0;
+  filter: invert(35%) sepia(30%) saturate(500%) hue-rotate(170deg) brightness(0.9);
+}
+.msvi-card-top    { height: 140px; display: flex; align-items: center; justify-content: center; }
+.msvi-card-title  { display: flex; align-items: center; justify-content: center; min-height: 80px; padding: 0.75rem 1rem; }
+.msvi-card-desc   { display: flex; align-items: center; justify-content: center; min-height: 60px; padding: 0.5rem 1rem 1rem; }
