@@ -84,7 +84,7 @@ const PLANS = [
 ];
 
 const Mapline = () => (
-  <div className="row g-2 my-3">
+  <div id="cid-map" className="row g-2 mb-3 mt-1" style={{ scrollMarginTop: 'var(--header-height)' }}>
     <style>{STYLES}</style>
     {/* Pay plans on left */}
     <div className="col-12 col-lg-6 d-flex flex-column gap-3">

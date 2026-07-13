@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import suit from '../assets/suit.svg'
 import crossroads from '../assets/crossroads.svg'
 import calendar from '../assets/calendar.svg'
@@ -8,10 +9,42 @@ import management from "../assets/management.svg";
 import board from "../assets/board.svg";
 
 const STATS = [
-  { num: "23,000", title: "Registered HOAs" },
-  { num: "60",     title: "Counties" },
-  { num: "14",     title: "Different Categories" },
+  { value: 23000, title: "Registered HOAs" },
+  { value: 60,    title: "Counties" },
+  { value: 14,    title: "Different Categories" },
 ];
+
+function useCountUp(target, start, duration = 1400) {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    let raf;
+    const startTime = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+
+  return value;
+}
+
+const StatPill = ({ value, title, start }) => {
+  const count = useCountUp(value, start);
+  return (
+    <div className="col-12 col-sm-4">
+      <div className="msvi-stat-pill bg-light border rounded-3 p-4 text-center">
+        <p className="msvi-stat-num mb-1 fw-medium font-monospace">{count.toLocaleString()}</p>
+        <p className="msvi-stat-label text-uppercase fst-italic fw-medium mb-0">{title}</p>
+      </div>
+    </div>
+  );
+};
 
 const DATA_ITEMS = [
   { src: suit,       alt: "Corporation Names",      title: "Corporation Names",      desc: "Legal HOA entity names" },
@@ -25,18 +58,33 @@ const DATA_ITEMS = [
 ];
 
 
-const Stats = () => (
-  <div className="bg-white text-dark py-5 px-4 mx-lg-5 mx-3">
+const Stats = () => {
+  const rowRef = useRef(null);
+  const [start, setStart] = useState(false);
+
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStart(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+  <div id="stats" className="bg-white text-dark py-3 px-4 mx-lg-5 mx-3" style={{ scrollMarginTop: 'var(--header-height)' }}>
 
     {/* ── Row 1: Stat pills ── */}
-    <div className="row g-3 justify-content-center mb-0">
-      {STATS.map(({ num, title }) => (
-        <div key={title} className="col-12 col-sm-4">
-          <div className="msvi-stat-pill bg-light border rounded-3 p-4 text-center">
-            <p className="msvi-stat-num mb-1 fw-medium font-monospace">{num}</p>
-            <p className="msvi-stat-label text-uppercase fst-italic fw-medium mb-0">{title}</p>
-          </div>
-        </div>
+    <div ref={rowRef} className="row g-3 justify-content-center mb-0">
+      {STATS.map((stat) => (
+        <StatPill key={stat.title} {...stat} start={start} />
       ))}
     </div>
 
@@ -78,6 +126,7 @@ const Stats = () => (
     </div>
 
   </div>
-);
+  );
+};
 
 export default Stats;

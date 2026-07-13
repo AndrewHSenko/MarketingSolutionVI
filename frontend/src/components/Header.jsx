@@ -1,9 +1,22 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
 import logo from '../assets/ms.png'
 
 const Header = () => {
+    const headerRef = useRef(null)
+
+    useEffect(() => {
+        const el = headerRef.current
+        if (!el) return
+        const observer = new ResizeObserver(() => {
+            document.documentElement.style.setProperty('--header-height', `${el.offsetHeight}px`)
+        })
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
+
     return (
-        <header className="sticky-top z-3 bg-primary">
+        <header ref={headerRef} className="sticky-top z-3 bg-primary">
             <nav className="navbar navbar-expand-lg w-100 py-0">
                 <div className="container-fluid">
                   <div className="d-flex flex-column align-items-center justify-content-center ms-md-4">
@@ -17,12 +30,12 @@ const Header = () => {
                   </button>
                   <div className="collapse navbar-collapse w-100 pt-1" id="navbar">
                       <div className="navbar-nav gap-1 gap-md-3 me-xl-5 me-2 gap-xl-5 ms-auto">
-                          <Link to="/" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID List</h5></Link>
-                          <Link to="/events" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID Map</h5></Link>
-                          <Link to="/events" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">Targeted Outreach</h5></Link>
-                          <Link to="/events" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">The Marketing Solution</h5></Link>
-                          <Link to="/about" className="btn border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>
-                          <Link to="/myvi" className="btn border-1 border-primary-dark bg-primary-dark fw-bold text-light ms-auto"><h5 className="lead">Login</h5></Link>
+                          <Link to="/#stats" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID List</h5></Link>
+                          <Link to="/#cid-map" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID Map</h5></Link>
+                          <Link to="/#targeted-outreach" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">Targeted Outreach</h5></Link>
+                          <Link to="/#marketing-solution" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">The Marketing Solution</h5></Link>
+                          <Link to="/about" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>
+                          <Link to="/myvi" className="btn d-flex align-items-center justify-content-center border-1 border-primary-dark bg-primary-dark fw-bold text-light ms-auto"><h5 className="lead">Login</h5></Link>
                       </div>
                   </div>
                 </div>

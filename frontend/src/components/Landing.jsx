@@ -17,7 +17,7 @@ const Landing = () => {
         <div className="row"> {/** Intro  mx-xxl-5 mx-2 mx-2 ms-lg-5 ms-md-4 ps-xl-5 p-0 */}
             <div className="col-12 col-md-7 d-flex flex-column justify-content-center pe-md-0">
                 <div class="card border-0 d-flex flex-column gap-lg-5 gap-4 text-dark mx-2 mx-md-4 ms-lg-5 ps-xxl-5 ps-xl-4">
-                    <h1 className="card-title mb-0 pt-sm-2 display-xl-3 fs-lg-1 fs-2 lead text-md-start text-center px-md-0 px-2 px-sm-5 mx-md-0 mx-sm-3">Broaden your horizons and reach new clients with Marketing Solution VI</h1>
+                    <h1 className="card-title mb-0 pt-sm-2 display-xl-3 display-5 text-md-start text-center px-md-0 px-2 px-sm-5 mx-md-0 mx-sm-3">Broaden your horizons and reach new clients with Marketing Solution VI</h1>
                     <img src={intro} className="intro img-fluid w-75 d-block d-md-none mx-auto" alt="House by Alghozy (https://unsplash.com/@artgho/illustrations?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)"/>
                     <p className="fs-6 fs-lg-5 lead">Marketing Solution VI specializes in finding contact and property information for neighborhoods and cities all over California. With our Common Interest Development (CID) List, you can find new clients, reconnect with old clients, and help scale your business.<br/><br/>Learn which developments are suitable for your business, reach out directly to the HOAs you want to target using our target outreach campaign, market to new counties, and see all the information you need in a spreadsheet and directly on a navigable map. Seek out new opportunities to grow your client base with the help of Marketing Solution VI.</p>
                 </div> 

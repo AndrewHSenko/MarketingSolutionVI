@@ -62,7 +62,7 @@ const TargetedOutreach = () => {
   const [active, setActive] = useState(null);
 
   return (
-    <div className="row g-3 g-lg-0">
+    <div id="targeted-outreach" className="row g-3 g-lg-0" style={{ scrollMarginTop: 'var(--header-height)' }}>
       <style>{STYLES}</style>
 
       {/* ── Left: Sample image ── */}
@@ -124,7 +124,7 @@ const TargetedOutreach = () => {
         </div>
 
         {/* Pricing */}
-        <div className="d-flex flex-column justify-content-center border border-2 border-primary-dark rounded-3 p-3 w-75 mx-auto">
+        <div className="d-flex flex-column justify-content-center border border-1 border-light rounded-2 bg-primary-subtle p-3 w-75 mx-auto">
           <div className="text-center">
             <span className="outreach-price-num">$1,500</span>
             <span className="text-uppercase fw-semibold opacity-50 d-block mt-1"
