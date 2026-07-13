@@ -87,7 +87,7 @@ const Mapline = () => (
   <div id="cid-map" className="row g-2 mb-3 mt-1" style={{ scrollMarginTop: 'var(--header-height)' }}>
     <style>{STYLES}</style>
     {/* Pay plans on left */}
-    <div className="col-12 col-lg-6 d-flex flex-column gap-3">
+    <div className="col-12 col-lg-8 d-flex flex-column gap-3">
       {/* Header */}
       <div className="rounded-5 pt-1 pb-3 text-center ">
         <h1 className="display-4 border-bottom border-3 border-light pb-2 mb-3 fw-bold">MSVI Map</h1>
@@ -136,7 +136,7 @@ const Mapline = () => (
       </div>
     </div>
     {/* Map sample on right */}
-    <div className="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center mt-3 mx-0 px-0">
+    <div className="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center mt-3 mx-0 px-0">
       <iframe
         className="border border-2 border-primary-dark px-0"
         src="https://app.mapline.com/map/map_17a6146c/UlRaYVQzSno3Mno1eVJsd1BkVVlLUTdQbk9hUldwTll5TU5Vck"
