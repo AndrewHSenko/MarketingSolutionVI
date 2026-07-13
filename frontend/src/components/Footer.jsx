@@ -1,15 +1,16 @@
 import { Link } from 'react-router'
 
-import msvi_logo from '../assets/msiv_logo.png'
+import logo from '../assets/ms.png'
 
 const Footer = () => {
   return (
     <div className="container-fluid bg-primary-dark py-lg-5 px-lg-5">
       <div className="row d-flex justify-content-between g-3 py-3 py-lg-0 text-light">
-        <div className="col-12 col-md-4 ">
-          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="">
-            <img src={msvi_logo} alt="Eatery logo" className="img-fluid px-4"/>
+        <div className="col-12 col-md-4 d-flex flex-column align-items-center text-center">
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="px-4">
+            <img src={logo} alt="MSVI Logo" className="img-fluid logo"/>
           </Link>
+          <p className="fs-2 fw-bold text-light px-4 mb-0">Marketing Solution VI</p>
         </div>
         <div className="col-12 col-md-4 text-center">
           <h5 className="fw-bold">Contact Us</h5>
