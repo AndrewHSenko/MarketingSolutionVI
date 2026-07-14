@@ -136,11 +136,11 @@ const Mapline = () => (
       </div>
     </div>
     {/* Map sample on right */}
-    <div className="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center mt-3 mx-0 px-0">
+    <div className="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center mt-3 mx-0 px-0" style={{ minWidth: 0 }}>
       <iframe
         className="border border-2 border-primary-dark px-0"
         src="https://app.mapline.com/map/map_17a6146c/UlRaYVQzSno3Mno1eVJsd1BkVVlLUTdQbk9hUldwTll5TU5Vck"
-        style={{ width: "80%", height: "600px" }}
+        style={{ width: "80%", maxWidth: "100%", height: "600px", minWidth: 0 }}
         allow="geolocation *"
       />
       <div className="align-self-end pe-5" style={{ fontSize: "10px" }}>
