@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import sample from "../assets/sample_sheet.png";
+import sampleCidList from "../assets/OC_Sample_CID_List.xlsx?url";
 
 const STYLES = `
   .outreach-card { border: 2px solid transparent; transition: border-color 0.2s, box-shadow 0.2s, transform 0.18s; }
@@ -68,25 +69,27 @@ const TargetedOutreach = () => {
 
       {/* ── Left: Sample image ── */}
       <div className="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center text-center px-3">
-        <div
-          className="card text-dark p-0 w-100"
+        <a
+          href={sampleCidList}
+          download="OC_Sample_CID_List.xlsx"
+          className="card text-dark text-decoration-none p-0 w-100"
           onMouseEnter={() => setActive("sample")}
           onMouseLeave={() => setActive(null)}
         >
           <img src={sample} className="card-img img-fluid" alt="Sample spreadsheet" />
           {/* Mobile overlay */}
           <div className="card-img-overlay p-0 d-md-none d-flex justify-content-center align-items-center h-100 bg-primary bg-opacity-75">
-            <button className="bg-primary p-3 w-100">
-              <h4 className="lead fs-5">Click here to download!</h4>
-            </button>
-          </div>
-          {/* Desktop hover overlay */}
-          <button className={`card-img-overlay p-0 d-md-flex d-none justify-content-center align-items-center h-100 bg-primary ${active === "sample" ? "bg-opacity-75" : "bg-opacity-25"}`}>
             <div className="bg-primary p-3 w-100">
               <h4 className="lead fs-5">Click here to download!</h4>
             </div>
-          </button>
-        </div>
+          </div>
+          {/* Desktop hover overlay */}
+          <div className={`card-img-overlay p-0 d-md-flex d-none justify-content-center align-items-center h-100 bg-primary ${active === "sample" ? "bg-opacity-75" : "bg-opacity-25"}`}>
+            <div className="bg-primary p-3 w-100">
+              <h4 className="lead fs-5">Click here to download!</h4>
+            </div>
+          </div>
+        </a>
         <p className="lead fst-italic pt-3 mb-0">Sample Marketing Solution VI CID List</p>
       </div>
 
