@@ -67,7 +67,7 @@ const TargetedOutreach = () => {
       <style>{STYLES}</style>
 
       {/* ── Left: Sample image ── */}
-      <div className="col-12 col-lg-3 d-flex flex-column justify-content-center align-items-center text-center px-3">
+      <div className="col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center text-center px-3">
         <div
           className="card text-dark p-0 w-100"
           onMouseEnter={() => setActive("sample")}
@@ -91,7 +91,7 @@ const TargetedOutreach = () => {
       </div>
 
       {/* ── Right: Outreach info ── */}
-      <div className="col-12 col-lg-9 d-flex flex-column gap-2 px-5 overflow-hidden">
+      <div className="col-12 col-lg-8 d-flex flex-column gap-2 px-5 overflow-hidden">
 
         {/* Header */}
         <div className="pt-1 pb-2 text-center">
