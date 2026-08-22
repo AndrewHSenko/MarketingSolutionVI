@@ -34,7 +34,7 @@ const Header = () => {
                           <Link to="/#cid-map" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">CID Map</h5></Link>
                           <Link to="/#targeted-outreach" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">Targeted Outreach</h5></Link>
                           <Link to="/#marketing-solution" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">The Marketing Solution</h5></Link>
-                          <Link to="/about" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>
+                          {/**<Link to="/about" className="btn d-flex align-items-center justify-content-center border-1 border-dark ms-auto" aria-current="page"><h5 className="lead">About Us</h5></Link>*/}
                           {/** <Link to="/myvi" className="btn d-flex align-items-center justify-content-center border-1 border-primary-dark bg-primary-dark fw-bold text-light ms-auto"><h5 className="lead">Login</h5></Link> */}
                       </div>
                   </div>
